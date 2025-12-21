@@ -1,0 +1,14 @@
+---
+id: meta-pixel-standard
+name: Meta Pixel Standard Event
+platform: Meta
+trigger: Page View
+condition: All pages
+author: tag.directory
+difficulty: Beginner
+description: Standard Meta Pixel pageview event
+tags: ["facebook", "pixel", "tracking"]
+vendor: Meta
+vendorIcon: meta
+---
+fbq('track', 'PageView');

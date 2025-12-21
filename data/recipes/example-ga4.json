@@ -1,0 +1,15 @@
+{
+  "id": "ga4-pageview-enhanced",
+  "name": "Enhanced GA4 Pageview with Custom Parameters",
+  "platform": "GA4",
+  "trigger": "Page Load",
+  "condition": "All pages",
+  "codeSnippet": "gtag('config', 'GA_MEASUREMENT_ID', {\n  page_title: document.title,\n  page_location: window.location.href,\n  custom_parameter_1: 'value1',\n  custom_parameter_2: 'value2'\n});",
+  "author": "tag.directory",
+  "difficulty": "Beginner",
+  "description": "Enhanced GA4 pageview tracking with custom parameters",
+  "tags": ["analytics", "pageview", "tracking"],
+  "vendor": "Google",
+  "vendorIcon": "google"
+}
+

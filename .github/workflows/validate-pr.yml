@@ -1,0 +1,49 @@
+name: Validate PR Content
+
+on:
+  pull_request:
+    paths:
+      - 'src/content/blueprints/**'
+      - 'data/recipes/**'
+      - 'data/scripts/**'
+      - 'data/standards/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Blueprints
+        run: npm run validate:blueprints || exit 1
+
+      - name: Validate All Content
+        run: npm run validate:all || exit 1
+
+      - name: Check for duplicates
+        run: npm run check:duplicates || true
+
+      - name: Comment PR
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Validation failed. Please check the errors above and fix your PR. See [CONTRIBUTING.md](https://github.com/${{ github.repository }}/blob/main/CONTRIBUTING.md) for guidelines.'
+            })

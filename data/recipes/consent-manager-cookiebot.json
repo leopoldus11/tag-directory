@@ -1,0 +1,15 @@
+{
+  "id": "consent-manager-cookiebot",
+  "name": "Cookiebot Consent Manager Integration",
+  "platform": "Consent",
+  "trigger": "Consent Update",
+  "condition": "When user updates consent preferences",
+  "codeSnippet": "function onCookiebotConsentUpdate() {\n  const consent = Cookiebot.consent;\n  \n  if (consent.statistics) {\n    // Initialize analytics\n    gtag('consent', 'update', {\n      'analytics_storage': 'granted'\n    });\n  }\n  \n  if (consent.marketing) {\n    // Initialize marketing pixels\n    fbq('consent', 'grant');\n  }\n}\n\nCookiebot.onConsentReady = onCookiebotConsentUpdate;\nCookiebot.onDecline = onCookiebotConsentUpdate;",
+  "author": "tag.directory",
+  "difficulty": "Intermediate",
+  "description": "Integrate Cookiebot consent manager with GA4 and Meta Pixel",
+  "tags": ["consent", "cookiebot", "gdpr", "privacy"],
+  "vendor": "Cookiebot",
+  "vendorIcon": "🍪"
+}
+

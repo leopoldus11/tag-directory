@@ -1,0 +1,58 @@
+[
+  {
+    "name": "blueprint",
+    "color": "0E8A16",
+    "description": "New blueprint proposal or addition"
+  },
+  {
+    "name": "script",
+    "color": "0E8A16",
+    "description": "New script proposal or addition"
+  },
+  {
+    "name": "standard",
+    "color": "0E8A16",
+    "description": "New standard proposal or addition"
+  },
+  {
+    "name": "enhancement",
+    "color": "a2eeef",
+    "description": "New feature or request"
+  },
+  {
+    "name": "bug",
+    "color": "d73a4a",
+    "description": "Something isn't working"
+  },
+  {
+    "name": "documentation",
+    "color": "0075ca",
+    "description": "Improvements or additions to documentation"
+  },
+  {
+    "name": "good first issue",
+    "color": "7057ff",
+    "description": "Good for newcomers"
+  },
+  {
+    "name": "help wanted",
+    "color": "008672",
+    "description": "Extra attention is needed"
+  },
+  {
+    "name": "discussion",
+    "color": "d876e3",
+    "description": "Discussion or question"
+  },
+  {
+    "name": "dependencies",
+    "color": "0366d6",
+    "description": "Pull requests that update a dependency file"
+  },
+  {
+    "name": "automated",
+    "color": "ededed",
+    "description": "Automated pull requests"
+  }
+]
+

@@ -1,0 +1,39 @@
+---
+id: server-side-ga4-event
+name: Server-Side GA4 Event Tracking
+platform: Server-Side
+trigger: API Call
+condition: Server-side processing
+author: tag.directory
+difficulty: Advanced
+description: Send GA4 events from server-side using Measurement Protocol
+tags: ["server-side", "ga4", "api", "measurement-protocol"]
+vendor: Google
+vendorIcon: google
+---
+const measurementId = 'G-XXXXXXXXXX';
+const apiSecret = 'your-api-secret';
+
+async function sendGA4Event(eventName, params) {
+  const url = `https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${apiSecret}`;
+  
+  const payload = {
+    client_id: generateClientId(),
+    events: [{
+      name: eventName,
+      params: params
+    }]
+  };
+  
+  await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+}
+
+// Usage
+sendGA4Event('purchase', {
+  transaction_id: 'T12345',
+  value: 25.42,
+  currency: 'USD'
+});
