@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Members | tag.directory",
-  description: "Browse members of the tag.directory community",
+  title: "Members | tracking.directory",
+  description: "Browse members of the tracking.directory community",
 };
 
 export default async function MembersPage() {

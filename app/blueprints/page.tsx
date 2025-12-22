@@ -7,10 +7,10 @@ import type { Metadata } from "next";
 import { RecipeMetadata } from "@/types/recipe";
 
 export const metadata: Metadata = {
-  title: "Blueprints | tag.directory",
+  title: "Blueprints | tracking.directory",
   description: "Browse tracking blueprints for GTM, Adobe Launch, Tealium, and more",
   openGraph: {
-    title: "Blueprints | tag.directory",
+    title: "Blueprints | tracking.directory",
     description: "Browse tracking blueprints for GTM, Adobe Launch, Tealium, and more",
     type: "website",
   },

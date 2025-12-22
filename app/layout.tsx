@@ -18,10 +18,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tag.directory"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tracking.directory"),
   title: {
-    default: "tag.directory - Open-Source Tracking Library",
-    template: "%s | tag.directory",
+    default: "tracking.directory - Open-Source Tracking Library",
+    template: "%s | tracking.directory",
   },
   description: "An open-source library for tracking scripts and recipes. Discover, share, and contribute production-ready tracking implementations for GTM, Adobe Launch, Tealium, GA4, Meta, and more.",
   keywords: [
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     "tag management",
     "open source",
   ],
-  authors: [{ name: "tag.directory" }],
-  creator: "tag.directory",
-  publisher: "tag.directory",
+  authors: [{ name: "tracking.directory" }],
+  creator: "tracking.directory",
+  publisher: "tracking.directory",
   formatDetection: {
     email: false,
     address: false,
@@ -49,22 +49,22 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://tag.directory",
-    siteName: "tag.directory",
-    title: "tag.directory - Open-Source Tracking Library",
+    url: "https://tracking.directory",
+    siteName: "tracking.directory",
+    title: "tracking.directory - Open-Source Tracking Library",
     description: "An open-source library for tracking scripts and recipes. Discover, share, and contribute production-ready tracking implementations.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "tag.directory - Open-Source Tracking Library",
+        alt: "tracking.directory - Open-Source Tracking Library",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "tag.directory - Open-Source Tracking Library",
+    title: "tracking.directory - Open-Source Tracking Library",
     description: "An open-source library for tracking scripts and recipes",
     creator: "@tagdirectory",
     images: ["/og-image.png"],
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://tag.directory",
+    canonical: "https://tracking.directory",
   },
   verification: {
     // Add when you have verification codes

@@ -1,6 +1,6 @@
 {
-  "name": "tag.directory",
-  "short_name": "tag.directory",
+  "name": "tracking.directory",
+  "short_name": "tracking.directory",
   "description": "Open-source library for tracking scripts and recipes",
   "start_url": "/",
   "display": "standalone",

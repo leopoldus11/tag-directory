@@ -75,7 +75,7 @@ export default function ContributePage() {
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-4xl px-6 py-12">
         <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight">Contribute to tag.directory</h1>
+          <h1 className="mb-4 text-4xl font-semibold tracking-tight">Contribute to tracking.directory</h1>
           <p className="text-muted-foreground">
             Share your tracking blueprints with the community
           </p>
@@ -103,7 +103,7 @@ export default function ContributePage() {
               </ol>
               <Button asChild className="w-full rounded-full">
                 <a
-                  href="https://github.com/leopoldus11/tag-directory"
+                  href="https://github.com/leopoldus11/tracking-directory"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -290,7 +290,7 @@ export default function ContributePage() {
                   <p className="text-xs text-muted-foreground">
                     Copy this JSON and create a new{" "}
                     <a
-                      href="https://github.com/leopoldus11/tag-directory/issues/new?template=blueprint-proposal.md"
+                          href="https://github.com/leopoldus11/tracking-directory/issues/new?template=blueprint-proposal.md"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-foreground hover:underline"

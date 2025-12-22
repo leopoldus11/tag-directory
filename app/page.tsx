@@ -9,12 +9,13 @@ import { Check, Copy, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
+import { getFeaturedJobs } from "@/lib/jobs";
 
 export const metadata: Metadata = {
-  title: "tag.directory - Tracking Scripts & Recipes",
+  title: "tracking.directory - Tracking Scripts & Recipes",
   description: "An open-source library for tracking scripts and recipes (GTM tags, Adobe Launch rules, etc.)",
   openGraph: {
-    title: "tag.directory - Tracking Scripts & Recipes",
+    title: "tracking.directory - Tracking Scripts & Recipes",
     description: "An open-source library for tracking scripts and recipes",
     type: "website",
   },
@@ -51,13 +52,19 @@ const difficultyColors: Record<string, string> = {
 export default async function Home() {
   const blueprints = getAllBlueprints();
   const authors = getAllAuthors();
+  const featuredJobs = getFeaturedJobs();
 
   return (
     <div className="min-h-screen bg-background">
       <main className="flex-1">
         {/* Hero Section - Centered */}
-        <div className="flex flex-col items-center justify-center px-4 sm:px-6 py-12 sm:py-20 text-center">
-          <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
+        <div className="flex flex-col items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-20 text-center">
+          {/* Space for SVG Logo */}
+          <div className="mb-4 sm:mb-6 md:mb-8 h-12 sm:h-16 md:h-20 flex items-center justify-center">
+            {/* SVG Logo will be inserted here */}
+          </div>
+          
+          <h1 className="mb-4 text-[21px] sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">
             The open-source library for tracking code
           </h1>
           <p className="mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base text-muted-foreground leading-relaxed px-4">
@@ -77,7 +84,7 @@ export default async function Home() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-4">
+          <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 px-4">
             <Button className="rounded-full" asChild>
               <Link href="/blueprints">Browse Blueprints</Link>
             </Button>
@@ -92,6 +99,61 @@ export default async function Home() {
 
         {/* Content Sections */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-8 sm:pb-12">
+          {/* Featured Jobs - Show above Featured Blueprints if jobs exist */}
+          {featuredJobs.length > 0 && (
+            <div className="mb-16">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <h2 className="mb-1 text-2xl font-semibold">Featured Jobs</h2>
+                  <p className="text-sm text-muted-foreground">Find your next digital analytics engineering role</p>
+                </div>
+                <ViewAllLink href="/jobs" />
+              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {featuredJobs.slice(0, 6).map((job) => (
+                  <Link
+                    key={job.id}
+                    href={job.url || `/jobs/${job.id}`}
+                    target={job.url ? "_blank" : undefined}
+                    rel={job.url ? "noopener noreferrer" : undefined}
+                    className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
+                  >
+                    {/* Company & Location */}
+                    <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+                      <span className="font-medium">{job.company}</span>
+                      <span>•</span>
+                      <span>{job.workplaceType}</span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mb-2 text-base font-semibold leading-tight">{job.title}</h3>
+
+                    {/* Description */}
+                    <p className="mb-4 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
+                      {job.description}
+                    </p>
+
+                    {/* Location & Experience */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span>{job.location}</span>
+                        {job.experience && (
+                          <>
+                            <span>•</span>
+                            <span>{job.experience}</span>
+                          </>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                        <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Featured Blueprints */}
           <div className="mb-16">
             <div className="mb-6 flex items-center justify-between">
@@ -258,7 +320,7 @@ export default async function Home() {
                 <Link href="/contribute">Start Contributing</Link>
               </Button>
               <Button variant="outline" className="rounded-full" asChild>
-                <Link href="https://github.com/leopoldus11/tag-directory" target="_blank" rel="noopener noreferrer">
+                <Link href="https://github.com/leopoldus11/tracking-directory" target="_blank" rel="noopener noreferrer">
                   View on GitHub
                   <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

@@ -1,6 +1,6 @@
-# Contributing to tag.directory
+# Contributing to tracking.directory
 
-Thank you for your interest in contributing to tag.directory! This document outlines the process for contributing blueprints, scripts, and standards to the open-source library.
+Thank you for your interest in contributing to tracking.directory! This document outlines the process for contributing blueprints, scripts, and standards to the open-source library.
 
 ## Architecture Overview
 
@@ -230,4 +230,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ---
 
-Thank you for helping build tag.directory! 🎉
+Thank you for helping build tracking.directory! 🎉

@@ -52,7 +52,7 @@
 }
 
 :root {
-  /* PRECISION MONOCHROME - Dark Mode (default for tag.directory) */
+  /* PRECISION MONOCHROME - Dark Mode (default for tracking.directory) */
   /* Backgrounds - Warm charcoal */
   --bg-base: oklch(0.11 0.005 90);
   --bg-elevated: oklch(0.14 0.005 90);

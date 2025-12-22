@@ -3,7 +3,7 @@ import { getAllBlueprints } from "@/lib/blueprints";
 import { getAllJobs } from "@/lib/jobs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tag.directory";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tracking.directory";
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [

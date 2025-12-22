@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: BlueprintPageProps): Promise<
   }
 
   return {
-    title: `${blueprint.title} | tag.directory`,
+    title: `${blueprint.title} | tracking.directory`,
     description: blueprint.description || `Tracking blueprint for ${blueprint.platform}`,
     openGraph: {
       title: blueprint.title,
@@ -39,7 +39,7 @@ export default async function BlueprintPage({ params }: BlueprintPageProps) {
   }
 
   // Get GitHub repo from environment or use default
-  const githubRepo = process.env.NEXT_PUBLIC_GITHUB_REPO || "leopoldus11/tag-directory";
+  const githubRepo = process.env.NEXT_PUBLIC_GITHUB_REPO || "leopoldus11/tracking-directory";
 
       return (
         <div className="min-h-screen bg-background">

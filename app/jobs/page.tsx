@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Jobs | tag.directory",
+  title: "Jobs | tracking.directory",
   description: "Find digital analytics and tracking engineering jobs",
 };
 

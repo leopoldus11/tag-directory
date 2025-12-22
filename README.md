@@ -1,4 +1,4 @@
-# tag.directory
+# tracking.directory
 
 An open-source library for tracking scripts and recipes (GTM tags, Adobe Launch rules, etc.). Built for digital engineers, freelance developers, and agencies who need reliable, tested tracking implementations.
 

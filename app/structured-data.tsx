@@ -2,12 +2,12 @@ import { getAllBlueprints } from "@/lib/blueprints";
 
 export function StructuredData() {
   const blueprints = getAllBlueprints();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tag.directory";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tracking.directory";
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "tag.directory",
+    name: "tracking.directory",
     description: "Open-source library for tracking scripts and recipes",
     url: baseUrl,
     potentialAction: {
@@ -23,11 +23,11 @@ export function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "tag.directory",
+    name: "tracking.directory",
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
     sameAs: [
-      "https://github.com/leopoldus11/tag-directory",
+      "https://github.com/leopoldus11/tracking-directory",
     ],
   };
 

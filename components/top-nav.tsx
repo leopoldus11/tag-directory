@@ -18,34 +18,52 @@ export function TopNav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="text-sm font-semibold tracking-tight font-mono">
-          tag.directory
-        </Link>
-        <div className="flex items-center gap-3 sm:gap-5">
-          <div className="hidden items-center gap-3 sm:gap-5 md:flex">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-[hsl(210_40%_98%)]",
-                    isActive
-                      ? "text-foreground"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </div>
+      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6 relative">
+        {/* Logo - centered on mobile, left-aligned on desktop */}
+        <div className="absolute left-1/2 md:left-0 md:relative md:left-auto transform -translate-x-1/2 md:transform-none">
+          <Link 
+            href="/" 
+            className="text-[14px] font-semibold tracking-tight font-mono"
+          >
+            tracking.directory
+          </Link>
+        </div>
+        
+        {/* Desktop Navigation - right side with nav items */}
+        <div className="hidden md:flex items-center gap-5">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-[hsl(210_40%_98%)]",
+                  isActive
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
           <Button 
             variant="default" 
             size="sm" 
-            className="h-8 px-3 sm:px-4 rounded-full bg-foreground text-background hover:bg-foreground/90 font-medium text-xs sm:text-sm"
+            className="h-8 px-4 rounded-full bg-foreground text-background hover:bg-foreground/90 font-medium"
+            asChild
+          >
+            <Link href="/login">Sign In</Link>
+          </Button>
+        </div>
+
+        {/* Mobile Sign In Button - right side */}
+        <div className="flex md:hidden justify-end">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 px-3 rounded-full font-medium text-sm hover:bg-accent"
             asChild
           >
             <Link href="/login">Sign In</Link>

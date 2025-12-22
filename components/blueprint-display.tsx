@@ -11,10 +11,10 @@ import Link from "next/link";
 
 interface BlueprintDisplayProps {
   blueprint: TrackingBlueprint;
-  githubRepo?: string; // e.g., "leopoldus11/tag-directory"
+  githubRepo?: string; // e.g., "leopoldus11/tracking-directory"
 }
 
-export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tag-directory" }: BlueprintDisplayProps) {
+export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking-directory" }: BlueprintDisplayProps) {
   const [copied, setCopied] = useState(false);
 
   // Determine display order based on platform
