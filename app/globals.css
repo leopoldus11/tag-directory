@@ -284,8 +284,8 @@
 
 /* Mobile-first responsive improvements */
 @media (max-width: 768px) {
-  /* Improve touch targets */
-  button, a, [role="button"] {
+  /* Improve touch targets - exclude logo links */
+  button, a:not(.logo-link), [role="button"] {
     min-height: 44px;
     min-width: 44px;
   }
