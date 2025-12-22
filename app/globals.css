@@ -330,8 +330,5 @@ html {
     line-height: 1.3;
   }
 
-  h3 {
-    font-size: 1.25rem;
-    line-height: 1.4;
-  }
+  /* h3 font-size removed - let individual components control their own sizing */
 }
