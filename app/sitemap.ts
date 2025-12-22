@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
 import { getAllBlueprints } from "@/lib/blueprints";
 import { getAllJobs } from "@/lib/jobs";
+import { getBaseUrl } from "@/lib/env";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tracking.directory";
+  const baseUrl = getBaseUrl();
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [

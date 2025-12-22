@@ -1,8 +1,9 @@
 import { getAllBlueprints } from "@/lib/blueprints";
+import { getBaseUrl } from "@/lib/env";
 
 export function StructuredData() {
   const blueprints = getAllBlueprints();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tracking.directory";
+  const baseUrl = getBaseUrl();
 
   const websiteSchema = {
     "@context": "https://schema.org",

@@ -5,6 +5,7 @@ import { TopNav } from "@/components/top-nav";
 import { StructuredData } from "./structured-data";
 import { ViewTransition } from "@/components/view-transition";
 import { AuthSessionProvider } from "@/components/session-provider";
+import { getBaseUrl } from "@/lib/env";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tracking.directory"),
+  metadataBase: new URL(getBaseUrl()),
   title: {
     default: "tracking.directory - Open-Source Tracking Library",
     template: "%s | tracking.directory",
