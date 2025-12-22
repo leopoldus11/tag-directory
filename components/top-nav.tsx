@@ -18,16 +18,14 @@ export function TopNav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6 relative">
+      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6">
         {/* Logo - centered on mobile, left-aligned on desktop */}
-        <div className="absolute left-1/2 md:left-0 md:relative md:left-auto transform -translate-x-1/2 md:transform-none">
-          <Link 
-            href="/" 
-            className="text-[14px] font-semibold tracking-tight font-mono"
-          >
-            tracking.directory
-          </Link>
-        </div>
+        <Link 
+          href="/" 
+          className="text-[14px] font-semibold tracking-tight font-mono flex-1 md:flex-none text-center md:text-left"
+        >
+          tracking.directory
+        </Link>
         
         {/* Desktop Navigation - right side with nav items */}
         <div className="hidden md:flex items-center gap-5">
