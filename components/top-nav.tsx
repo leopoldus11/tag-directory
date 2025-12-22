@@ -18,17 +18,17 @@ export function TopNav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6 relative">
-        {/* Logo - centered on mobile (absolute), left-aligned on desktop */}
+      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6">
+        {/* Logo - left-aligned on both mobile and desktop */}
         <Link 
           href="/" 
-          className="absolute left-1/2 top-1/2 md:left-0 md:top-auto md:relative md:left-auto transform -translate-x-1/2 -translate-y-1/2 md:transform-none text-[14px] font-semibold tracking-tight font-mono flex items-center"
+          className="text-[14px] font-semibold tracking-tight font-mono"
         >
           tracking.directory
         </Link>
         
         {/* Desktop Navigation - right side with nav items */}
-        <div className="hidden md:flex items-center gap-5 ml-auto">
+        <div className="hidden md:flex items-center gap-5">
           {navItems.map((item) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
             return (
@@ -57,16 +57,14 @@ export function TopNav() {
         </div>
 
         {/* Mobile Sign In Button - right side */}
-        <div className="flex md:hidden">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="h-8 px-3 rounded-full font-medium text-sm hover:bg-accent"
-            asChild
-          >
-            <Link href="/login">Sign In</Link>
-          </Button>
-        </div>
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 px-3 rounded-full font-medium text-sm hover:bg-accent md:hidden"
+          asChild
+        >
+          <Link href="/login">Sign In</Link>
+        </Button>
       </div>
     </nav>
   );
