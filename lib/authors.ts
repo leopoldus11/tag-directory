@@ -10,6 +10,19 @@ export interface Author {
   bio?: string;
   contributions: number;
   github?: string;
+  credits?: number;
+  followers?: number;
+  following?: number;
+  isOpenForWork?: boolean;
+  availabilityType?: "freelance" | "full-time" | "part-time" | "not-available";
+  skills?: string[];
+}
+
+export function getAuthorRank(author: Author) {
+  const credits = author.credits || 0;
+  // Import dynamically to avoid client-side issues
+  const { getRankFromCredits } = require("@/components/credit-badge");
+  return getRankFromCredits(credits);
 }
 
 export function getAllAuthors(): Author[] {

@@ -5,7 +5,26 @@
     "avatar": "TD",
     "bio": "The tracking.directory team",
     "contributions": 4,
-    "github": "https://github.com/tag-directory"
+    "github": "https://github.com/tag-directory",
+    "credits": 250,
+    "followers": 12,
+    "following": 5,
+    "isOpenForWork": false,
+    "skills": ["GTM", "Adobe Launch", "GA4"]
+  },
+  {
+    "username": "leopoldus11",
+    "name": "Leopold",
+    "avatar": "L",
+    "bio": "Digital engineer specializing in GTM and Adobe Launch",
+    "contributions": 9,
+    "github": "https://github.com/leopoldus11",
+    "credits": 520,
+    "followers": 8,
+    "following": 3,
+    "isOpenForWork": true,
+    "availabilityType": "freelance",
+    "skills": ["GTM", "Adobe Launch", "GA4", "JavaScript"]
   },
   {
     "username": "MaydayV",
@@ -13,7 +32,12 @@
     "avatar": "MV",
     "bio": "Senior Digital Analytics Engineer",
     "contributions": 0,
-    "github": "https://github.com/MaydayV"
+    "github": "https://github.com/MaydayV",
+    "credits": 0,
+    "followers": 0,
+    "following": 0,
+    "isOpenForWork": false,
+    "skills": []
   }
 ]
 

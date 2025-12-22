@@ -11,10 +11,10 @@ import Link from "next/link";
 
 interface BlueprintDisplayProps {
   blueprint: TrackingBlueprint;
-  githubRepo?: string; // e.g., "leopoldus11/tracking-directory"
+  githubRepo?: string; // e.g., "leopoldus11/tag-directory"
 }
 
-export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking-directory" }: BlueprintDisplayProps) {
+export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tag-directory" }: BlueprintDisplayProps) {
   const [copied, setCopied] = useState(false);
 
   // Determine display order based on platform
@@ -30,8 +30,10 @@ export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking
     return `https://github.com/${githubRepo}/blob/main/src/content/blueprints/${blueprint.slug}.json`;
   };
 
-  // Get triggers (support both new array format and legacy string format)
+  // Get triggers/events (support both new array format and legacy string format)
+  // For GTM: use "triggers", for Adobe Launch: use "events"
   const triggers = blueprint.triggers || (blueprint.trigger ? [{ name: blueprint.trigger, type: "Trigger" }] : []);
+  const events = (blueprint as any).events || []; // Adobe Launch uses "events"
 
   // Get conditions (support both new array format and legacy string format)
   const conditions = blueprint.conditions || (blueprint.condition ? [{ condition: blueprint.condition }] : []);
@@ -115,19 +117,36 @@ export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking
             <div className="rounded-lg border border-border/50 bg-card/50 p-4">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Firing Triggers</h3>
               <div className="space-y-3">
-                {triggers.map((trigger, index) => (
+                {triggers.map((trigger: any, index: number) => (
                   <div key={index} className="rounded-md border border-border/30 bg-muted/30 p-3">
-                    <div className="mb-1 flex items-center gap-2">
+                    <div className="mb-1 flex items-center gap-2 flex-wrap">
                       <span className="text-sm font-medium">{trigger.name}</span>
                       {trigger.type && (
                         <Badge variant="outline" className="text-xs">{trigger.type}</Badge>
+                      )}
+                      {trigger.eventName && (
+                        <Badge variant="secondary" className="text-xs font-mono bg-primary/10 text-primary">
+                          Event: {trigger.eventName}
+                        </Badge>
                       )}
                     </div>
                     {trigger.description && (
                       <p className="text-xs text-muted-foreground">{trigger.description}</p>
                     )}
-                    {trigger.event && (
-                      <p className="mt-1 text-xs font-mono text-muted-foreground">Event: {trigger.event}</p>
+                    {/* Trigger Conditions (GTM-specific filters) */}
+                    {trigger.conditions && trigger.conditions.length > 0 && (
+                      <div className="mt-2 space-y-1">
+                        <p className="text-xs font-semibold text-muted-foreground">Trigger Conditions:</p>
+                        {trigger.conditions.map((cond: any, condIndex: number) => (
+                          <div key={condIndex} className="text-xs font-mono text-muted-foreground pl-2 border-l-2 border-border/30">
+                            {cond.condition ? (
+                              cond.condition
+                            ) : (
+                              `${cond.variable || 'Variable'} ${cond.operator || 'operator'} ${cond.value || 'value'}`
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
                 ))}
@@ -157,26 +176,29 @@ export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking
           )}
         </>
       ) : isAdobeLaunch ? (
-        // Adobe Launch / Tealium Display Order: Triggers → Conditions → Code
+        // Adobe Launch / Tealium Display Order: Events → Conditions → Code
         <>
-          {/* Triggers Section */}
-          {triggers.length > 0 && (
+          {/* Events Section (Adobe Launch uses "Events", not "Triggers") */}
+          {(events.length > 0 || triggers.length > 0) && (
             <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Triggers</h3>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Events</h3>
+              <p className="mb-3 text-xs text-muted-foreground">Rule fires when ANY of these events occur (OR logic):</p>
               <div className="space-y-3">
-                {triggers.map((trigger, index) => (
+                {(events.length > 0 ? events : triggers).map((event: any, index: number) => (
                   <div key={index} className="rounded-md border border-border/30 bg-muted/30 p-3">
-                    <div className="mb-1 flex items-center gap-2">
-                      <span className="text-sm font-medium">{trigger.name}</span>
-                      {trigger.type && (
-                        <Badge variant="outline" className="text-xs">{trigger.type}</Badge>
+                    <div className="mb-1 flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-medium">{event.name}</span>
+                      {event.type && (
+                        <Badge variant="outline" className="text-xs">{event.type}</Badge>
+                      )}
+                      {event.eventName && (
+                        <Badge variant="secondary" className="text-xs font-mono bg-primary/10 text-primary">
+                          Event: {event.eventName}
+                        </Badge>
                       )}
                     </div>
-                    {trigger.description && (
-                      <p className="text-xs text-muted-foreground">{trigger.description}</p>
-                    )}
-                    {trigger.event && (
-                      <p className="mt-1 text-xs font-mono text-muted-foreground">Event: {trigger.event}</p>
+                    {event.description && (
+                      <p className="text-xs text-muted-foreground">{event.description}</p>
                     )}
                   </div>
                 ))}
@@ -188,12 +210,18 @@ export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking
           {conditions.length > 0 && (
             <div className="rounded-lg border border-border/50 bg-card/50 p-4">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Conditions</h3>
+              <p className="mb-3 text-xs text-muted-foreground">ALL conditions must return true for the rule to execute actions (AND logic):</p>
               <div className="space-y-3">
-                {conditions.map((condition, index) => (
+                {conditions.map((condition: any, index: number) => (
                   <div key={index} className="rounded-md border border-border/30 bg-muted/30 p-3">
-                    {condition.name && (
-                      <div className="mb-1 text-sm font-medium">{condition.name}</div>
-                    )}
+                    <div className="mb-1 flex items-center gap-2 flex-wrap">
+                      {condition.name && (
+                        <span className="text-sm font-medium">{condition.name}</span>
+                      )}
+                      {condition.type && (
+                        <Badge variant="outline" className="text-xs">{condition.type}</Badge>
+                      )}
+                    </div>
                     <p className="text-xs font-mono text-muted-foreground">{condition.condition}</p>
                     {condition.description && (
                       <p className="mt-1 text-xs text-muted-foreground">{condition.description}</p>

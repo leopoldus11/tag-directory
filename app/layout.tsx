@@ -4,6 +4,7 @@ import "./globals.css";
 import { TopNav } from "@/components/top-nav";
 import { StructuredData } from "./structured-data";
 import { ViewTransition } from "@/components/view-transition";
+import { AuthSessionProvider } from "@/components/session-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -117,10 +118,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ViewTransition>
-          <TopNav />
-          {children}
-        </ViewTransition>
+        <AuthSessionProvider>
+          <ViewTransition>
+            <TopNav />
+            {children}
+          </ViewTransition>
+        </AuthSessionProvider>
       </body>
     </html>
   );

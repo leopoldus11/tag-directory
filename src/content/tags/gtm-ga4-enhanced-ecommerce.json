@@ -1,0 +1,55 @@
+{
+  "id": "gtm-ga4-enhanced-ecommerce",
+  "slug": "gtm-ga4-enhanced-ecommerce",
+  "title": "GA4 Enhanced Ecommerce Tracking",
+  "author": "leopoldus11",
+  "platform": "GTM",
+  "type": "Tag",
+  "tagType": "Google Analytics: GA4 Event",
+  "content": "// GA4 Enhanced Ecommerce tracking for Google Tag Manager\n// Tracks product views, add to cart, purchases, and more\n\n// Get ecommerce data from data layer\nvar ecommerceData = {{Ecommerce Data}};\n\n// Map to GA4 format\nvar ga4Event = {\n  event: 'purchase',\n  transaction_id: ecommerceData.transaction_id,\n  value: ecommerceData.value,\n  currency: ecommerceData.currency || 'USD',\n  items: ecommerceData.items.map(function(item) {\n    return {\n      item_id: item.sku || item.id,\n      item_name: item.name,\n      item_category: item.category,\n      price: item.price,\n      quantity: item.quantity\n    };\n  })\n};\n\n// Send to GA4\ngtag('event', ga4Event.event, ga4Event);",
+  "community_verified": true,
+  "description": "Comprehensive GA4 enhanced ecommerce tracking tag for Google Tag Manager. Tracks purchases, product views, add to cart, and other ecommerce events with proper GA4 data structure.",
+  "difficulty": "Advanced",
+  "tags": ["ga4", "ecommerce", "purchase", "conversion", "tracking"],
+  "triggers": [
+    {
+      "name": "Purchase Event",
+      "type": "Custom Event",
+      "eventName": "purchase",
+      "description": "Fires when a purchase is completed",
+      "conditions": [
+        {
+          "variable": "Event",
+          "operator": "equals",
+          "value": "purchase",
+          "description": "Only fire on purchase events"
+        }
+      ]
+    },
+    {
+      "name": "Add to Cart",
+      "type": "Custom Event",
+      "eventName": "add_to_cart",
+      "description": "Fires when a product is added to cart"
+    },
+    {
+      "name": "Product View",
+      "type": "Custom Event",
+      "eventName": "view_item",
+      "description": "Fires when a product page is viewed"
+    }
+  ],
+  "exceptions": [
+    {
+      "name": "Don't fire on test transactions",
+      "condition": "{{Test Mode}} === true",
+      "description": "Prevent firing on test/staging environments"
+    }
+  ],
+  "executionOrder": 1,
+  "useCase": "Ecommerce",
+  "vendor": "Google",
+  "vendorIcon": "🛒",
+  "filePath": "src/content/tags/gtm-ga4-enhanced-ecommerce.json"
+}
+

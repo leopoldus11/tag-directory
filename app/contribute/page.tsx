@@ -103,7 +103,7 @@ export default function ContributePage() {
               </ol>
               <Button asChild className="w-full rounded-full">
                 <a
-                  href="https://github.com/leopoldus11/tracking-directory"
+                  href="https://github.com/leopoldus11/tag-directory"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -290,7 +290,7 @@ export default function ContributePage() {
                   <p className="text-xs text-muted-foreground">
                     Copy this JSON and create a new{" "}
                     <a
-                          href="https://github.com/leopoldus11/tracking-directory/issues/new?template=blueprint-proposal.md"
+                          href="https://github.com/leopoldus11/tag-directory/issues/new?template=blueprint-proposal.md"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-foreground hover:underline"

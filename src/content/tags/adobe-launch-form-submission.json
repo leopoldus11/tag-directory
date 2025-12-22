@@ -1,0 +1,34 @@
+{
+  "id": "adobe-launch-form-submission",
+  "slug": "adobe-launch-form-submission",
+  "title": "Form Submission Tracking",
+  "author": "leopoldus11",
+  "platform": "Adobe Launch",
+  "type": "Rule",
+  "content": "// Form submission tracking for Adobe Launch\n// Tracks form submissions with validation and error handling\n\n(function() {\n  var form = event.target.closest('form');\n  if (!form) return;\n\n  var formId = form.id || form.getAttribute('name') || 'unnamed-form';\n  var formName = form.getAttribute('data-form-name') || formId;\n  var formAction = form.action || 'no-action';\n  var formMethod = form.method || 'get';\n\n  // Get form fields (optional - be mindful of PII)\n  var fieldCount = form.querySelectorAll('input, select, textarea').length;\n  var requiredFields = form.querySelectorAll('[required]').length;\n\n  // Check if form is valid (HTML5 validation)\n  var isValid = form.checkValidity();\n\n  // Send form submission event\n  _satellite.track('formSubmit', {\n    formId: formId,\n    formName: formName,\n    formAction: formAction,\n    formMethod: formMethod,\n    fieldCount: fieldCount,\n    requiredFields: requiredFields,\n    isValid: isValid,\n    timestamp: new Date().toISOString()\n  });\n})();",
+  "community_verified": true,
+  "description": "Form submission tracking rule for Adobe Launch. Tracks form submissions with metadata including form ID, name, action, field counts, and validation status.",
+  "difficulty": "Intermediate",
+  "tags": ["form-tracking", "conversion", "analytics", "submission"],
+  "events": [
+    {
+      "name": "Form Submission",
+      "type": "Form Submission",
+      "description": "Fires when a form is submitted"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "Only track valid forms",
+      "type": "Custom Code",
+      "condition": "event.target.closest('form') !== null",
+      "description": "Ensure the event target is within a form element"
+    }
+  ],
+  "executionOrder": 3,
+  "useCase": "Analytics",
+  "vendor": "Adobe",
+  "vendorIcon": "📝",
+  "filePath": "src/content/tags/adobe-launch-form-submission.json"
+}
+

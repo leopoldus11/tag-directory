@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { RecipeCard } from "@/components/recipe-card";
 import { FilterBar } from "@/components/filter-bar";
-import { Difficulty, RecipeMetadata } from "@/types/recipe";
+import { RecipeMetadata } from "@/types/recipe";
 import { useFilters } from "./sidebar-wrapper";
 
 interface RecipeGridProps {
@@ -12,8 +12,7 @@ interface RecipeGridProps {
 }
 
 export function RecipeGrid({ initialRecipes, showFilters = true }: RecipeGridProps) {
-  const { selectedPlatform, selectedUseCase } = useFilters();
-  const [selectedDifficulties, setSelectedDifficulties] = useState<Difficulty[]>([]);
+  const { selectedPlatform } = useFilters();
   const [searchQuery, setSearchQuery] = useState("");
 
   // High-performance filtering using useMemo
@@ -21,19 +20,6 @@ export function RecipeGrid({ initialRecipes, showFilters = true }: RecipeGridPro
     return initialRecipes.filter((recipe) => {
       // Platform filter
       if (selectedPlatform !== "All" && recipe.platform !== selectedPlatform) {
-        return false;
-      }
-
-      // Use Case filter (if recipe has useCase property)
-      if (selectedUseCase !== "All") {
-        const recipeUseCase = (recipe as any).useCase;
-        if (recipeUseCase && recipeUseCase !== selectedUseCase) {
-          return false;
-        }
-      }
-
-      // Difficulty filter
-      if (selectedDifficulties.length > 0 && !selectedDifficulties.includes(recipe.difficulty)) {
         return false;
       }
 
@@ -53,15 +39,7 @@ export function RecipeGrid({ initialRecipes, showFilters = true }: RecipeGridPro
 
       return true;
     });
-  }, [initialRecipes, selectedPlatform, selectedUseCase, selectedDifficulties, searchQuery]);
-
-  const handleDifficultyToggle = (difficulty: Difficulty) => {
-    setSelectedDifficulties((prev) =>
-      prev.includes(difficulty)
-        ? prev.filter((d) => d !== difficulty)
-        : [...prev, difficulty]
-    );
-  };
+  }, [initialRecipes, selectedPlatform, searchQuery]);
 
   return (
     <>
@@ -69,8 +47,6 @@ export function RecipeGrid({ initialRecipes, showFilters = true }: RecipeGridPro
       {showFilters && (
         <div className="mb-6">
           <FilterBar
-            selectedDifficulties={selectedDifficulties}
-            onDifficultyToggle={handleDifficultyToggle}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
           />

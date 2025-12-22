@@ -42,8 +42,8 @@ export function RecipeCard({ recipe, onView, type = "recipe" }: RecipeCardProps)
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Use blueprints route for recipes
-  const href = type === "recipe" ? `/blueprints/${recipe.id}` : `/${type}s/${recipe.id}`;
+  // Use tags route for recipes
+  const href = type === "recipe" ? `/tags/${recipe.id}` : `/${type}s/${recipe.id}`;
 
   return (
     <Link href={href}>

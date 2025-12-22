@@ -2,115 +2,83 @@
 
 An open-source library for tracking scripts and recipes (GTM tags, Adobe Launch rules, etc.). Built for digital engineers, freelance developers, and agencies who need reliable, tested tracking implementations.
 
-[![Contributors](https://img.shields.io/github/contributors/leopoldus11/tag-directory)](https://github.com/leopoldus11/tag-directory/graphs/contributors)
-[![License](https://img.shields.io/github/license/leopoldus11/tag-directory)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-## Features
-
-- 🎯 **Curated Blueprints**: Pre-built tracking blueprints for common use cases
-- 📜 **Reusable Scripts**: Custom code snippets that can be used in blueprints
-- 🏷️ **Category Filters**: Filter by platform (GTM, Adobe Launch, Tealium, GA4, Meta, etc.) and use case
-- 📋 **Quick Copy**: One-click copy for code snippets
-- 🔍 **Powerful Search**: Find blueprints quickly with Cmd+K search
-- 📊 **Standards**: Community-driven best practices for tracking implementations
-- 👥 **Members**: Connect with the tracking community
-- 🌙 **Dark Mode**: Beautiful dark mode interface
-- ⚡ **Fast**: Static generation for optimal performance
-- 🤝 **Open Source**: Contribute your own blueprints via Pull Requests
-
 ## Getting Started
 
-### Installation
+First, run the development server:
 
 ```bash
-# Clone the repository
-git clone https://github.com/leopoldus11/tag-directory.git
-cd tag-directory
-
-# Install dependencies
 npm install
-
-# Run the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Building for Production
+## How to Contribute
+
+### 1. Fork the Repo
+
+### 2. Adding a New Tag
+
+If you want to submit a **new tag** that does not already exist, follow these steps:
+
+1. **Create a Tag File**:
+   
+   Create a new file in the `src/content/tags/` directory with the appropriate name. For example, if you're adding a tag for GA4 Enhanced Ecommerce, name the file `gtm-ga4-enhanced-ecommerce.json`.
+
+2. **Define the Tag**:
+   
+   Add your tag data inside the newly created file. Refer to the existing tags for formatting guidance. Make sure your tags are accurate, clear, and helpful to developers.
+
+   Your tags should:
+   - Be accurate and related to the tracking implementation
+   - Be clearly worded to help developers understand and use them easily
+   - Be actionable, providing steps or insights to solve common problems
+   - Test your tags: Before submitting, ensure that your tags have been tested and work as expected in the relevant development environment
+
+3. **Important Parameters in Tag Files**:
+
+   When creating tags, be sure to include the following parameters:
+
+   - **id**: Unique identifier (lowercase, hyphens, no spaces)
+   - **slug**: URL-friendly identifier (usually same as id)
+   - **title**: Display name
+   - **author**: Your GitHub username (or array of usernames)
+   - **platform**: GTM, Adobe Launch, Tealium, GA4, Meta, etc.
+   - **type**: "Tag", "Rule", or "Snippet"
+   - **content**: Code snippet (Markdown or JavaScript)
+   - **description**: Brief description (optional)
+   - **triggers**: When the script runs (optional)
+   - **conditions**: Conditions for execution (optional)
+
+### 3. Adding New Content to Existing Tags
+
+If you want to add new content to an existing tag, follow these steps:
+
+1. **Find the Existing Tag**:
+   
+   Navigate to the `src/content/tags/` directory and open the relevant file.
+
+2. **Update the Tag**:
+   
+   Make your changes, ensuring that your additions are tested.
+
+### 4. Validate Your Changes
+
+Before submitting, validate your changes:
 
 ```bash
-npm run build
-npm start
+npm run validate:all
 ```
 
-## Project Structure
+### 5. Create a PR
 
-```
-tag-directory/
-├── app/                    # Next.js app directory
-│   ├── blueprints/        # Blueprint pages
-│   ├── scripts/           # Script pages
-│   ├── standards/         # Best practices/standards
-│   ├── members/           # Community members
-│   ├── contribute/        # Contribution page
-│   └── api/               # API routes
-├── src/content/           # Blueprint content
-│   └── blueprints/        # Blueprint files (.json or .mdc)
-├── data/                  # Data files
-│   ├── recipes/          # Legacy recipes (migrated automatically)
-│   ├── scripts/          # Script files
-│   ├── standards/        # Standard files
-│   └── authors/          # Author profiles
-├── components/            # React components
-│   ├── ui/               # shadcn/ui components
-│   ├── member-profile.tsx # Member profile component
-│   ├── code-block.tsx    # Code highlighting
-│   └── ...
-├── lib/                  # Utilities
-│   ├── schemas/          # Zod schemas
-│   ├── blueprints.ts     # Blueprint loading
-│   └── authors.ts        # Author management
-└── types/                # TypeScript types
-```
+Submit your Pull Request with a clear description of what you've added or changed.
 
-## Understanding Blueprints
+## Content Structure
 
-### Blueprints
-Blueprints are abstractions of tracking implementations (like GTM tags or Adobe Launch rules). They include:
-- **Type**: Tag (GTM-style), Rule (Adobe Launch-style), or Snippet
-- **Platform**: GTM, Adobe Launch, Tealium, GA4, Meta, etc.
-- **Triggers**: When the script should run
-- **Conditions**: Conditions under which the script runs
-- **Content**: Custom Code or Code from Extensions that executes
-
-### Scripts
-Scripts are reusable code snippets that can be implemented as Custom Code in Blueprints. They are standalone code blocks that can be used across multiple blueprints.
-
-## Contributing
-
-tag.directory is a **community-driven open-source library**. All content is managed through GitHub Pull Requests.
-
-### Quick Start
-
-1. **Fork** the repository
-2. **Add** your blueprint/script/standard in the appropriate directory
-3. **Validate** locally: `npm run validate:all`
-4. **Submit** a Pull Request
-
-### Contribution Guide
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the complete contribution workflow, including:
-- Content format and schemas
-- Validation process
-- PR submission guidelines
-- Community review process
-
-### Content Directories
-
-- **Blueprints**: [src/content/blueprints/](./src/content/blueprints/) (create new files here)
-- **Scripts**: [data/scripts/README.md](./data/scripts/README.md)
-- **Standards**: [data/standards/README.md](./data/standards/README.md)
+- **Tags**: `src/content/tags/*.json` - GTM tags, Adobe Launch rules, etc.
+- **Scripts**: `data/scripts/*.json` - Reusable code snippets
+- **Standards**: `data/standards/*.json` - Best practices
 
 ## Tech Stack
 
@@ -119,44 +87,10 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the complete contribution workflow,
 - **Zod**: Runtime validation
 - **Tailwind CSS**: Styling
 - **shadcn/ui**: UI component library
-- **Shiki**: Code syntax highlighting
-- **Static Generation**: Fast, pre-rendered pages
-
-## Deployment
-
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
-
-### Quick Deploy to Vercel
-
-1. Push your code to GitHub
-2. Import to [Vercel](https://vercel.com)
-3. Deploy automatically
-
-## Roadmap
-
-- [ ] Authentication system (Sign up/Login)
-- [ ] User profiles and contributions
-- [ ] Blueprint/script submission workflow
-- [ ] Voting system for standards
-- [ ] Comments and discussions
-- [ ] Analytics integration
-- [ ] API for programmatic access
 
 ## License
 
 MIT License - see [LICENSE](./LICENSE) for details.
-
-## Acknowledgments
-
-- Inspired by [cursor.directory](https://cursor.directory)
-- Built with [Next.js](https://nextjs.org) and [shadcn/ui](https://ui.shadcn.com)
-
-## Community
-
-- 📖 [Documentation](./CONTRIBUTING.md)
-- 💬 [Discussions](https://github.com/leopoldus11/tag-directory/discussions)
-- 🐛 [Issues](https://github.com/leopoldus11/tag-directory/issues)
-- 📝 [Contributing Guide](./CONTRIBUTING.md)
 
 ---
 

@@ -1,0 +1,34 @@
+{
+  "id": "gtm-youtube-video-tracking",
+  "slug": "gtm-youtube-video-tracking",
+  "title": "YouTube Video Tracking",
+  "author": "leopoldus11",
+  "platform": "GTM",
+  "type": "Tag",
+  "tagType": "Custom HTML",
+  "content": "<!-- YouTube Video Tracking for Google Tag Manager -->\n<script>\n(function() {\n  // YouTube iframe API\n  var tag = document.createElement('script');\n  tag.src = 'https://www.youtube.com/iframe_api';\n  var firstScriptTag = document.getElementsByTagName('script')[0];\n  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);\n\n  var players = {};\n\n  window.onYouTubeIframeAPIReady = function() {\n    var iframes = document.querySelectorAll('iframe[src*=\"youtube.com\"], iframe[src*=\"youtu.be\"]');\n    \n    iframes.forEach(function(iframe, index) {\n      var videoId = iframe.src.match(/(?:youtube\\.com\\/embed\\/|youtu\\.be\\/)([^&\\n?#]+)/)?.[1];\n      if (!videoId) return;\n\n      players[videoId] = new YT.Player(iframe.id || 'yt-player-' + index, {\n        events: {\n          'onStateChange': function(event) {\n            var eventName = '';\n            var progress = 0;\n            \n            switch(event.data) {\n              case YT.PlayerState.PLAYING:\n                eventName = 'video_play';\n                break;\n              case YT.PlayerState.PAUSED:\n                eventName = 'video_pause';\n                break;\n              case YT.PlayerState.ENDED:\n                eventName = 'video_complete';\n                progress = 100;\n                break;\n              case YT.PlayerState.BUFFERING:\n                eventName = 'video_progress';\n                progress = Math.round((event.target.getCurrentTime() / event.target.getDuration()) * 100);\n                break;\n            }\n\n            if (eventName) {\n              window.dataLayer = window.dataLayer || [];\n              window.dataLayer.push({\n                'event': 'youtube_' + eventName,\n                'videoId': videoId,\n                'videoProgress': progress,\n                'videoURL': iframe.src\n              });\n            }\n          }\n        }\n      });\n    });\n  };\n})();\n</script>",
+  "community_verified": true,
+  "description": "YouTube video tracking tag for Google Tag Manager. Tracks video play, pause, progress, and completion events. Uses YouTube iframe API to monitor video engagement.",
+  "difficulty": "Advanced",
+  "tags": ["youtube", "video-tracking", "engagement", "media"],
+  "triggers": [
+    {
+      "name": "All Pages",
+      "type": "Page View",
+      "description": "Fires on all page views to initialize YouTube tracking"
+    },
+    {
+      "name": "YouTube Video Events",
+      "type": "Custom Event",
+      "eventName": "youtube_video_play",
+      "description": "Fires when YouTube video events occur"
+    }
+  ],
+  "exceptions": [],
+  "executionOrder": 1,
+  "useCase": "Analytics",
+  "vendor": "YouTube",
+  "vendorIcon": "▶️",
+  "filePath": "src/content/tags/gtm-youtube-video-tracking.json"
+}
+

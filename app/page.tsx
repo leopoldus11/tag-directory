@@ -76,7 +76,7 @@ export default async function Home() {
           {/* CTA Buttons */}
           <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 px-4">
             <Button className="rounded-full" asChild>
-              <Link href="/blueprints">Browse Blueprints</Link>
+              <Link href="/tags">Browse Tags</Link>
             </Button>
             <Button variant="outline" className="rounded-full" asChild>
               <Link href="/contribute">
@@ -148,10 +148,10 @@ export default async function Home() {
           <div className="mb-16">
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="mb-1 text-2xl font-semibold">Featured Blueprints</h2>
+                <h2 className="mb-1 text-2xl font-semibold">Featured Tags</h2>
                 <p className="text-sm text-muted-foreground">Production-ready tracking implementations</p>
               </div>
-              <ViewAllLink href="/blueprints" />
+              <ViewAllLink href="/tags" />
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {blueprints.slice(0, 6).map((blueprint) => {
@@ -165,7 +165,7 @@ export default async function Home() {
                 return (
                   <Link
                     key={blueprint.id}
-                    href={`/blueprints/${blueprint.slug}`}
+                    href={`/tags/${blueprint.slug}`}
                     className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
                   >
                     {/* Title */}
@@ -294,14 +294,17 @@ export default async function Home() {
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="mb-1 text-2xl font-semibold">Community Members</h2>
-                <p className="text-sm text-muted-foreground">The experts behind the blueprints</p>
+                <p className="text-sm text-muted-foreground">The experts behind the tags</p>
               </div>
               <ViewAllLink href="/members" />
             </div>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              {authors.slice(0, 6).map((author) => (
-                <MemberProfile key={author.username} author={author} compact />
-              ))}
+              {authors
+                .sort((a, b) => (b.credits || 0) - (a.credits || 0))
+                .slice(0, 6)
+                .map((author) => (
+                  <MemberProfile key={author.username} author={author} compact />
+                ))}
             </div>
           </div>
 
@@ -309,14 +312,14 @@ export default async function Home() {
           <div className="mb-12 rounded-lg border border-border/50 bg-card/50 p-12 text-center">
             <h2 className="mb-3 text-2xl font-semibold">Ready to contribute?</h2>
             <p className="mb-6 text-muted-foreground">
-              Share your tracking expertise with the community. Submit your blueprints, scripts, and standards via GitHub.
+              Share your tracking expertise with the community. Submit your tags, scripts, and standards via GitHub.
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button className="rounded-full" asChild>
                 <Link href="/contribute">Start Contributing</Link>
               </Button>
               <Button variant="outline" className="rounded-full" asChild>
-                <Link href="https://github.com/leopoldus11/tracking-directory" target="_blank" rel="noopener noreferrer">
+                <Link href="https://github.com/leopoldus11/tag-directory" target="_blank" rel="noopener noreferrer">
                   View on GitHub
                   <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>

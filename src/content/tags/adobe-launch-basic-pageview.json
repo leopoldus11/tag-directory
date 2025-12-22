@@ -1,0 +1,27 @@
+{
+  "id": "adobe-launch-basic-pageview",
+  "slug": "adobe-launch-basic-pageview",
+  "title": "Basic PageView Tracking",
+  "author": "leopoldus11",
+  "platform": "Adobe Launch",
+  "type": "Rule",
+  "content": "// Basic PageView tracking for Adobe Analytics\n// This rule fires on every page load to send page view data\n\n// Set page name from data layer or URL\nvar pageName = _satellite.getVar('pageName') || window.location.pathname;\nvar pageURL = window.location.href;\n\n// Send page view beacon\n_satellite.track('pageview', {\n  pageName: pageName,\n  pageURL: pageURL,\n  timestamp: new Date().toISOString()\n});",
+  "community_verified": true,
+  "description": "Basic page view tracking rule for Adobe Launch. Sends page view data to Adobe Analytics on every page load. Includes page name and URL tracking.",
+  "difficulty": "Beginner",
+  "tags": ["adobe-analytics", "pageview", "basic", "tracking"],
+  "events": [
+    {
+      "name": "Page Load",
+      "type": "Page Load",
+      "description": "Fires when the page finishes loading"
+    }
+  ],
+  "conditions": [],
+  "executionOrder": 1,
+  "useCase": "Analytics",
+  "vendor": "Adobe",
+  "vendorIcon": "📊",
+  "filePath": "src/content/tags/adobe-launch-basic-pageview.json"
+}
+

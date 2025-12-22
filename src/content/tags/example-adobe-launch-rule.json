@@ -1,0 +1,40 @@
+{
+  "id": "cookiebot-consent-manager",
+  "slug": "cookiebot-consent-manager",
+  "title": "Cookiebot Consent Manager Integration",
+  "author": "leopoldus11",
+  "platform": "Adobe Launch",
+  "type": "Rule",
+  "content": "function onCookiebotConsentUpdate() {\n  const consent = Cookiebot.consent;\n\n  if (consent.statistics) {\n    // Initialize analytics\n    gtag('consent', 'update', {\n      'analytics_storage': 'granted'\n    });\n  }\n\n  if (consent.marketing) {\n    // Initialize marketing pixels\n    fbq('consent', 'grant');\n  }\n}\n\nCookiebot.onConsentReady = onCookiebotConsentUpdate;\nCookiebot.onDecline = onCookiebotConsentUpdate;",
+  "community_verified": false,
+  "description": "Integrate Cookiebot consent manager with GA4 and Meta Pixel. Updates consent preferences when user changes their cookie preferences.",
+  "difficulty": "Intermediate",
+  "tags": ["consent", "cookiebot", "ga4", "meta", "adobe-launch"],
+  "events": [
+    {
+      "name": "Consent Update",
+      "type": "Custom Event",
+      "eventName": "CookiebotConsentUpdate",
+      "description": "Fires when user updates consent preferences"
+    },
+    {
+      "name": "Page Load",
+      "type": "Page Load",
+      "description": "Fires on initial page load to check consent status"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "When user grants consent",
+      "type": "Custom Code",
+      "condition": "Cookiebot.consent.statistics === true OR Cookiebot.consent.marketing === true",
+      "description": "Only execute if user has granted statistics or marketing consent"
+    }
+  ],
+  "executionOrder": 1,
+  "useCase": "Consent",
+  "vendor": "Cookiebot",
+  "vendorIcon": "🍪",
+  "filePath": "src/content/tags/cookiebot-consent-manager.json"
+}
+

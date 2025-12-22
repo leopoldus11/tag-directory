@@ -27,7 +27,7 @@ export function StructuredData() {
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
     sameAs: [
-      "https://github.com/leopoldus11/tracking-directory",
+      "https://github.com/leopoldus11/tag-directory",
     ],
   };
 

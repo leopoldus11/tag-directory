@@ -1,0 +1,34 @@
+{
+  "id": "adobe-launch-link-tracking",
+  "slug": "adobe-launch-link-tracking",
+  "title": "Link Click Tracking",
+  "author": "leopoldus11",
+  "platform": "Adobe Launch",
+  "type": "Rule",
+  "content": "// Link click tracking for Adobe Launch\n// Tracks all outbound and download links\n\n(function() {\n  // Get the clicked link element\n  var linkElement = event.target.closest('a');\n  if (!linkElement) return;\n\n  var linkURL = linkElement.href;\n  var linkText = linkElement.textContent.trim() || linkElement.getAttribute('aria-label') || 'No text';\n  var isOutbound = linkElement.hostname !== window.location.hostname;\n  var isDownload = linkElement.hasAttribute('download') || /\.(pdf|zip|doc|docx|xls|xlsx)$/i.test(linkURL);\n\n  // Determine link type\n  var linkType = 'other';\n  if (isOutbound) linkType = 'outbound';\n  else if (isDownload) linkType = 'download';\n  else linkType = 'internal';\n\n  // Send link click event\n  _satellite.track('linkClick', {\n    linkURL: linkURL,\n    linkText: linkText,\n    linkType: linkType,\n    isOutbound: isOutbound,\n    isDownload: isDownload\n  });\n})();",
+  "community_verified": true,
+  "description": "Comprehensive link click tracking rule for Adobe Launch. Tracks outbound links, download links, and internal navigation. Captures link URL, text, and type.",
+  "difficulty": "Intermediate",
+  "tags": ["link-tracking", "click-tracking", "outbound", "download", "analytics"],
+  "events": [
+    {
+      "name": "Link Click",
+      "type": "Click",
+      "description": "Fires when a user clicks on any link"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "Only track anchor tags",
+      "type": "Custom Code",
+      "condition": "event.target.closest('a') !== null",
+      "description": "Ensure the clicked element is or is within an anchor tag"
+    }
+  ],
+  "executionOrder": 2,
+  "useCase": "Analytics",
+  "vendor": "Adobe",
+  "vendorIcon": "🔗",
+  "filePath": "src/content/tags/adobe-launch-link-tracking.json"
+}
+

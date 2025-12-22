@@ -1,9 +1,7 @@
 "use client";
 
 import { Author } from "@/lib/authors";
-import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
 
 interface MemberProfileProps {
   author: Author;
@@ -11,58 +9,20 @@ interface MemberProfileProps {
 }
 
 export function MemberProfile({ author, compact = false }: MemberProfileProps) {
-  if (compact) {
-    return (
-      <Link
-        href={`/members/${author.username}`}
-        className="flex flex-col items-center rounded-lg border border-border/50 bg-card/50 p-4 hover:border-border/80 hover:bg-card transition-all text-center"
-      >
-        <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-muted/50 text-base font-medium text-foreground">
+  return (
+    <Link
+      href={`/members/${author.username}`}
+      className="group relative flex items-center gap-3 rounded-lg border border-border/50 bg-card/50 p-3 hover:border-border/80 hover:bg-card transition-all"
+    >
+      <div className="relative shrink-0">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 text-sm font-medium text-foreground">
           {author.avatar}
         </div>
-        <p className="mb-1 text-sm font-semibold">{author.name}</p>
-        <p className="mb-1 text-xs text-muted-foreground font-mono">{author.contributions} contributions</p>
-        {author.bio && (
-          <p className="line-clamp-2 text-xs text-muted-foreground leading-relaxed">{author.bio}</p>
+        {author.isOpenForWork && (
+          <div className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-background bg-green-500" title="Open for work" />
         )}
-      </Link>
-    );
-  }
-
-  return (
-    <Card className="transition-all hover:border-border/80 hover:bg-card border-border/50 bg-card/50">
-      <CardContent className="p-6">
-        <div className="flex flex-col items-center text-center">
-          <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-muted/50 text-lg font-medium text-foreground">
-            {author.avatar}
-          </div>
-          <h3 className="mb-1 text-lg font-semibold">{author.name}</h3>
-          {author.bio && (
-            <p className="mb-2 text-sm text-muted-foreground">{author.bio}</p>
-          )}
-          <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
-            <span className="font-mono">{author.contributions} contributions</span>
-            {author.github && (
-              <Link
-                href={author.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 hover:text-foreground transition-colors"
-              >
-                GitHub
-                <ExternalLink className="h-3 w-3" />
-              </Link>
-            )}
-          </div>
-          <Link
-            href={`/members/${author.username}`}
-            className="text-sm text-primary hover:underline"
-          >
-            View Profile
-          </Link>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+      <p className="text-sm font-medium text-foreground truncate flex-1">{author.name}</p>
+    </Link>
   );
 }
-

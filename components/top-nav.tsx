@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { UserMenu } from "./user-menu";
 
 const navItems = [
-  { href: "/blueprints", label: "Blueprints" },
+  { href: "/tags", label: "Tags" },
   { href: "/scripts", label: "Scripts" },
   { href: "/standards", label: "Standards" },
   { href: "/jobs", label: "Jobs" },
@@ -46,25 +46,13 @@ export function TopNav() {
               </Link>
             );
           })}
-          <Button 
-            variant="default" 
-            size="sm" 
-            className="h-8 px-4 rounded-full bg-foreground text-background hover:bg-foreground/90 font-medium"
-            asChild
-          >
-            <Link href="/login">Sign In</Link>
-          </Button>
+          <UserMenu />
         </div>
 
-        {/* Mobile Sign In Button - right side */}
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className="h-8 px-3 rounded-full font-medium text-sm hover:bg-accent md:hidden"
-          asChild
-        >
-          <Link href="/login">Sign In</Link>
-        </Button>
+        {/* Mobile User Menu - right side */}
+        <div className="md:hidden">
+          <UserMenu />
+        </div>
       </div>
     </nav>
   );

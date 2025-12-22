@@ -1,0 +1,28 @@
+{
+  "id": "gtm-scroll-depth-tracking",
+  "slug": "gtm-scroll-depth-tracking",
+  "title": "Scroll Depth Tracking",
+  "author": "leopoldus11",
+  "platform": "GTM",
+  "type": "Tag",
+  "tagType": "Custom HTML",
+  "content": "<!-- Scroll Depth Tracking for Google Tag Manager -->\n<script>\n(function() {\n  var scrollThresholds = [25, 50, 75, 90, 100]; // Percentage thresholds\n  var firedThresholds = [];\n  var lastScrollTop = 0;\n  var ticking = false;\n\n  function trackScrollDepth() {\n    var windowHeight = window.innerHeight;\n    var documentHeight = document.documentElement.scrollHeight;\n    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;\n    var scrollPercentage = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);\n\n    scrollThresholds.forEach(function(threshold) {\n      if (scrollPercentage >= threshold && firedThresholds.indexOf(threshold) === -1) {\n        firedThresholds.push(threshold);\n        \n        // Push to data layer\n        window.dataLayer = window.dataLayer || [];\n        window.dataLayer.push({\n          'event': 'scrollDepth',\n          'scrollDepth': threshold,\n          'pageURL': window.location.href,\n          'pagePath': window.location.pathname\n        });\n      }\n    });\n  }\n\n  function onScroll() {\n    if (!ticking) {\n      window.requestAnimationFrame(function() {\n        trackScrollDepth();\n        ticking = false;\n      });\n      ticking = true;\n    }\n  }\n\n  window.addEventListener('scroll', onScroll, { passive: true });\n})();\n</script>",
+  "community_verified": true,
+  "description": "Scroll depth tracking tag for Google Tag Manager. Tracks user engagement by firing events at 25%, 50%, 75%, 90%, and 100% scroll depth. Uses requestAnimationFrame for performance.",
+  "difficulty": "Intermediate",
+  "tags": ["scroll-tracking", "engagement", "analytics", "user-behavior"],
+  "triggers": [
+    {
+      "name": "All Pages",
+      "type": "Page View",
+      "description": "Fires on all page views to initialize scroll tracking"
+    }
+  ],
+  "exceptions": [],
+  "executionOrder": 1,
+  "useCase": "Analytics",
+  "vendor": "Google",
+  "vendorIcon": "📜",
+  "filePath": "src/content/tags/gtm-scroll-depth-tracking.json"
+}
+
