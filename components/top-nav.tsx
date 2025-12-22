@@ -22,7 +22,7 @@ export function TopNav() {
         {/* Logo - centered on mobile (absolute), left-aligned on desktop */}
         <Link 
           href="/" 
-          className="absolute left-1/2 md:left-0 md:relative md:left-auto transform -translate-x-1/2 md:transform-none text-[14px] font-semibold tracking-tight font-mono"
+          className="absolute left-1/2 md:left-0 md:relative md:left-auto transform -translate-x-1/2 md:transform-none text-[14px] font-semibold tracking-tight font-mono flex items-center h-full"
         >
           tracking.directory
         </Link>
