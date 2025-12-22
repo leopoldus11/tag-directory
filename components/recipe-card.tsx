@@ -84,7 +84,9 @@ export function RecipeCard({ recipe, onView, type = "recipe" }: RecipeCardProps)
             </Badge>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-xs text-muted-foreground font-mono">by {recipe.author}</p>
+            <p className="text-[12px] text-muted-foreground font-mono">
+              {Array.isArray(recipe.author) ? recipe.author.join(', ') : recipe.author}
+            </p>
             <div className="flex items-center gap-1">
               <Button
                 size="sm"

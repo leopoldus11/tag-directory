@@ -164,64 +164,70 @@ export default async function Home() {
               <ViewAllLink href="/blueprints" />
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {blueprints.slice(0, 6).map((blueprint) => (
-                <Link
-                  key={blueprint.id}
-                  href={`/blueprints/${blueprint.slug}`}
-                  className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
-                >
-                  {/* Platform Abbreviation */}
-                  <div className="mb-3 flex h-8 w-8 items-center justify-center rounded bg-muted/30 text-xs font-medium text-muted-foreground">
-                    {getPlatformAbbr(blueprint.platform)}
-                  </div>
+              {blueprints.slice(0, 6).map((blueprint) => {
+                // Support multiple authors (comma-separated string or array)
+                const authors = Array.isArray(blueprint.author) 
+                  ? blueprint.author 
+                  : typeof blueprint.author === 'string' 
+                    ? blueprint.author.split(',').map(a => a.trim())
+                    : [blueprint.author];
+                
+                return (
+                  <Link
+                    key={blueprint.id}
+                    href={`/blueprints/${blueprint.slug}`}
+                    className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
+                  >
+                    {/* Title */}
+                    <h3 className="mb-2 text-[12px] md:text-base font-semibold leading-tight text-[#F8FAFC]">
+                      {blueprint.title}
+                    </h3>
 
-                  {/* Title */}
-                  <h3 className="mb-2 text-base font-semibold leading-tight">{blueprint.title}</h3>
+                    {/* Description */}
+                    <p className="mb-4 line-clamp-2 text-[12px] md:text-sm text-muted-foreground leading-relaxed">
+                      {blueprint.description || "No description available"}
+                    </p>
 
-                  {/* Description */}
-                  <p className="mb-4 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
-                    {blueprint.description || "No description available"}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        "text-xs border font-normal",
-                        platformColors[blueprint.platform] || platformColors.Other
-                      )}
-                    >
-                      {blueprint.platform}
-                    </Badge>
-                    {blueprint.difficulty && (
+                    {/* Tags - Hidden on mobile */}
+                    <div className="mb-3 hidden md:flex flex-wrap items-center gap-2">
                       <Badge
                         variant="outline"
                         className={cn(
                           "text-xs border font-normal",
-                          difficultyColors[blueprint.difficulty]
+                          platformColors[blueprint.platform] || platformColors.Other
                         )}
                       >
-                        {blueprint.difficulty}
+                        {blueprint.platform}
                       </Badge>
-                    )}
-                  </div>
-
-                  {/* Author */}
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs text-muted-foreground font-mono">
-                      {blueprint.author}
-                      {blueprint.community_verified && (
-                        <Check className="ml-1 inline h-3 w-3 text-emerald-500" />
+                      {blueprint.difficulty && (
+                        <Badge
+                          variant="outline"
+                          className={cn(
+                            "text-xs border font-normal",
+                            difficultyColors[blueprint.difficulty]
+                          )}
+                        >
+                          {blueprint.difficulty}
+                        </Badge>
                       )}
-                    </p>
-                    <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
-                      <Copy className="h-3.5 w-3.5 text-muted-foreground" />
-                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
                     </div>
-                  </div>
-                </Link>
-              ))}
+
+                    {/* Authors */}
+                    <div className="flex items-center justify-between">
+                      <p className="text-[12px] text-muted-foreground font-mono">
+                        {authors.join(', ')}
+                        {blueprint.community_verified && (
+                          <Check className="ml-1 inline h-3 w-3 text-emerald-500" />
+                        )}
+                      </p>
+                      <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                        <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                        <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
