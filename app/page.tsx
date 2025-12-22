@@ -21,16 +21,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Get platform abbreviation (first 2 letters)
-function getPlatformAbbr(platform: string): string {
-  return platform
-    .split(" ")
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-}
-
 // Improved badge colors with better contrast
 const platformColors: Record<string, string> = {
   GTM: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30",
