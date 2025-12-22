@@ -259,9 +259,17 @@ export function BlueprintDisplay({ blueprint, githubRepo = "leopoldus11/tracking
       )}
 
       {/* Metadata Section */}
-      <div className="flex items-center gap-4 text-sm text-muted-foreground font-mono border-t border-border/50 pt-4">
+      <div className="flex items-center gap-4 text-[12px] text-muted-foreground font-mono border-t border-border/50 pt-4">
         <span>
-          by <Link href={`/members/${blueprint.author}`} className="hover:text-foreground transition-colors">{blueprint.author}</Link>
+          {Array.isArray(blueprint.author) 
+            ? blueprint.author.map((author, idx) => (
+                <span key={idx}>
+                  {idx > 0 && ', '}
+                  <Link href={`/members/${author}`} className="hover:text-foreground transition-colors">{author}</Link>
+                </span>
+              ))
+            : <Link href={`/members/${blueprint.author}`} className="hover:text-foreground transition-colors">{blueprint.author}</Link>
+          }
         </span>
         {blueprint.createdAt && (
           <>
