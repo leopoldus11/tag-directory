@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://tracking.directory",
+    url: getBaseUrl(),
     siteName: "tracking.directory",
     title: "tracking.directory - Open-Source Tracking Library",
     description: "An open-source library for tracking scripts and recipes. Discover, share, and contribute production-ready tracking implementations.",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://tracking.directory",
+    canonical: getBaseUrl(),
   },
   verification: {
     // Add when you have verification codes

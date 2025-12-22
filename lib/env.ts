@@ -22,8 +22,9 @@ export function getBaseUrl(): string {
     return "http://localhost:3000";
   }
 
-  // Fallback to production URL
-  return "https://tracking.directory";
+  // Fallback to Vercel app URL (temporary while site is being finished)
+  // Then fallback to production domain
+  return "https://tag-directory.vercel.app";
 }
 
 /**
