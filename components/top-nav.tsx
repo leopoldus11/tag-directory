@@ -18,17 +18,17 @@ export function TopNav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6">
-        {/* Logo - centered on mobile, left-aligned on desktop */}
+      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4 sm:px-6 relative">
+        {/* Logo - centered on mobile (absolute), left-aligned on desktop */}
         <Link 
           href="/" 
-          className="text-[14px] font-semibold tracking-tight font-mono flex-1 md:flex-none text-center md:text-left"
+          className="absolute left-1/2 md:left-0 md:relative md:left-auto transform -translate-x-1/2 md:transform-none text-[14px] font-semibold tracking-tight font-mono"
         >
           tracking.directory
         </Link>
         
         {/* Desktop Navigation - right side with nav items */}
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden md:flex items-center gap-5 ml-auto">
           {navItems.map((item) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
             return (
@@ -57,7 +57,7 @@ export function TopNav() {
         </div>
 
         {/* Mobile Sign In Button - right side */}
-        <div className="flex md:hidden justify-end">
+        <div className="flex md:hidden">
           <Button 
             variant="ghost" 
             size="sm" 
