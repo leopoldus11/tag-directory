@@ -44,8 +44,8 @@ export function Sidebar({
   const [useCasesOpen, setUseCasesOpen] = useState(true);
 
   return (
-    <aside className="fixed left-0 top-14 z-30 h-[calc(100vh-3.5rem)] w-64 border-r border-border/40 bg-sidebar/30 backdrop-blur-sm">
-      <div className="h-full overflow-y-auto p-6">
+    <aside className="fixed left-0 top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-64 border-r border-border/40 bg-sidebar/30 backdrop-blur-sm md:block">
+      <div className="h-full overflow-y-auto p-4 sm:p-6">
         {/* Platform Filter */}
         <div className="mb-6">
           <button

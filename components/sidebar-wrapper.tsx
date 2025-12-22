@@ -39,7 +39,9 @@ export function SidebarWrapper({ children }: { children: ReactNode }) {
           selectedUseCase={selectedUseCase}
           onUseCaseChange={setSelectedUseCase}
         />
-        {children}
+        <div className="flex-1 md:ml-64">
+          {children}
+        </div>
       </div>
     </FilterContext.Provider>
   );

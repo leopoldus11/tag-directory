@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRECISION MONOCHROME DESIGN SYSTEM
+   A distinctive design language for technical excellence
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -47,95 +52,286 @@
 }
 
 :root {
-  --radius: 0.5rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+  /* PRECISION MONOCHROME - Dark Mode (default for tag.directory) */
+  /* Backgrounds - Warm charcoal */
+  --bg-base: oklch(0.11 0.005 90);
+  --bg-elevated: oklch(0.14 0.005 90);
+  --bg-surface: oklch(0.18 0.005 90);
+  --bg-hover: oklch(0.2 0.005 90);
+  
+  /* Text */
+  --text-primary: oklch(0.93 0.005 90);
+  --text-secondary: oklch(0.55 0.005 90);
+  --text-tertiary: oklch(0.45 0.005 90);
+  
+  /* Borders */
+  --border-subtle: oklch(0.18 0.005 90);
+  --border-default: oklch(0.24 0.005 90);
+  --border-strong: oklch(0.35 0.005 90);
+  
+  /* Interactive */
+  --interactive-default: oklch(0.95 0.005 90);
+  --interactive-hover: oklch(0.85 0.005 90);
+  --interactive-active: oklch(0.75 0.005 90);
+  
+  /* Signature glow */
+  --glow: oklch(0.95 0 0 / 0.03);
+  --glow-intense: oklch(0.95 0 0 / 0.06);
 
-.dark {
-  --background: oklch(0.08 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.12 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.12 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.98 0 0);
-  --primary-foreground: oklch(0.08 0 0);
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.15 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(1 0 0 / 20%);
+  /* Tailwind CSS variable mappings */
+  --radius: 0.5rem; /* 8px - matches --radius-md */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+  --card: var(--bg-elevated);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--interactive-default);
+  --primary-foreground: var(--bg-base);
+  --secondary: var(--bg-surface);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-surface);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--bg-hover);
+  --accent-foreground: var(--text-primary);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: var(--text-primary);
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--interactive-default);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.12 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(1 0 0 / 20%);
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--interactive-default);
+  --sidebar-primary-foreground: var(--bg-base);
+  --sidebar-accent: var(--bg-surface);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--interactive-default);
+}
+
+.dark {
+  /* Same as root since we're dark mode by default */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+  --card: var(--bg-elevated);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--interactive-default);
+  --primary-foreground: var(--bg-base);
+  --secondary: var(--bg-surface);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-surface);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--bg-hover);
+  --accent-foreground: var(--text-primary);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: var(--text-primary);
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--interactive-default);
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--interactive-default);
+  --sidebar-primary-foreground: var(--bg-base);
+  --sidebar-accent: var(--bg-surface);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--interactive-default);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: var(--font-geist-sans), 'Geist', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+  
   code, pre, kbd, samp {
-    font-family: var(--font-geist-mono), "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    font-family: var(--font-geist-mono), 'Geist Mono', "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
     font-feature-settings: "liga" 1, "calt" 1;
   }
   
   /* Ensure font-mono class uses monospace */
   .font-mono {
-    font-family: var(--font-geist-mono), "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace !important;
+    font-family: var(--font-geist-mono), 'Geist Mono', "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace !important;
     font-feature-settings: "liga" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  /* Signature Glow Effect - Precision Monochrome */
+  .glow {
+    box-shadow: inset 0 1px 0 0 var(--glow);
+  }
+  
+  .glow-intense {
+    box-shadow: inset 0 1px 0 0 var(--glow-intense);
+  }
+  
+  .glow-hover:hover {
+    box-shadow: inset 0 1px 0 0 var(--glow-intense);
+  }
+
+  /* Typography with negative tracking */
+  .tracking-tight {
+    letter-spacing: -0.03em;
+  }
+  
+  .tracking-tighter {
+    letter-spacing: -0.04em;
+  }
+  
+  .tracking-display {
+    letter-spacing: -0.04em;
+  }
+  
+  .tracking-heading {
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  /* Cards with signature glow on hover - Precision Monochrome */
+  .card-precision {
+    @apply rounded-lg border border-border/50 bg-card/50 transition-all;
+  }
+  
+  .card-precision:hover {
+    @apply border-border/80 bg-card;
+    box-shadow: inset 0 1px 0 0 var(--glow-intense);
+    transform: translateY(-2px);
+  }
+  
+  /* Buttons with inner glow */
+  .btn-precision {
+    @apply rounded-full transition-all;
+    box-shadow: inset 0 1px 0 0 var(--glow);
+  }
+  
+  .btn-precision:hover {
+    box-shadow: inset 0 1px 0 0 var(--glow-intense);
+  }
+  
+  .btn-precision:active {
+    box-shadow: inset 0 1px 2px var(--glow-intense);
   }
 }
 
 /* Hover effect for navigation links - matching cursor.directory */
 .hover\:text-accent-foreground:hover {
   color: hsl(210 40% 98%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CSS VIEW TRANSITIONS - Mobile App-like Experience
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@supports (view-transition-name: none) {
+  /* Enable view transitions for smooth page navigation */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Smooth fade transition */
+  ::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: fade-in;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Shared element transitions for cards */
+  .view-transition-card {
+    view-transition-name: var(--card-id);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVENESS ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Mobile-first responsive improvements */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better spacing on mobile */
+  .container-mobile {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Stack elements on mobile */
+  .mobile-stack {
+    flex-direction: column;
+  }
+
+  /* Full-width on mobile */
+  .mobile-full {
+    width: 100%;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mobile-optimized text sizes */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
 }

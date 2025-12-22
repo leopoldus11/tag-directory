@@ -50,3 +50,23 @@ next-env.d.ts
 
 # OS
 Thumbs.db
+
+# Personal/Development Documentation (not for community)
+# Prompt files for design tools
+RELUME_PROMPT.md
+RELUME_PROMPT_COPY.md
+V0_PROMPT.md
+
+# Setup and workflow guides (personal reference)
+GITHUB_SETUP_COMPLETE.md
+SETUP_GITHUB.md
+SECURITY_SETUP.md
+ENABLE_WORKFLOWS.md
+QUICK_START.md
+QUICK_TEST_PR.md
+TEST_PR_GUIDE.md
+MANUAL_PR_WORKFLOW.md
+UNDERSTANDING_PULL_REQUESTS.md
+IMPLEMENTATION_STATUS.md
+NEXT_STEPS.md
+DEPLOYMENT_QUICK_START.md

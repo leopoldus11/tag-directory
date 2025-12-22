@@ -15,12 +15,16 @@ export function MemberProfile({ author, compact = false }: MemberProfileProps) {
     return (
       <Link
         href={`/members/${author.username}`}
-        className="flex flex-col items-center rounded-lg border border-border/50 bg-card/50 p-3 hover:border-border/80 hover:bg-card transition-all"
+        className="flex flex-col items-center rounded-lg border border-border/50 bg-card/50 p-4 hover:border-border/80 hover:bg-card transition-all text-center"
       >
-        <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-muted/50 text-xs font-medium text-foreground">
+        <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-muted/50 text-base font-medium text-foreground">
           {author.avatar}
         </div>
-        <p className="text-xs text-center font-mono text-muted-foreground">{author.name}</p>
+        <p className="mb-1 text-sm font-semibold">{author.name}</p>
+        <p className="mb-1 text-xs text-muted-foreground font-mono">{author.contributions} contributions</p>
+        {author.bio && (
+          <p className="line-clamp-2 text-xs text-muted-foreground leading-relaxed">{author.bio}</p>
+        )}
       </Link>
     );
   }

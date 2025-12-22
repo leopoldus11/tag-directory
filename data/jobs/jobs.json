@@ -1,0 +1,16 @@
+[
+  {
+    "id": "example-1",
+    "title": "Senior Digital Analytics Engineer",
+    "company": "Tech Corp",
+    "location": "San Francisco, CA",
+    "workplaceType": "Hybrid",
+    "experience": "5+",
+    "description": "We're looking for an experienced digital analytics engineer to lead our tracking implementation. You'll work with GTM, Adobe Launch, and server-side tagging.",
+    "url": "https://example.com/jobs/senior-analytics-engineer",
+    "featured": false,
+    "createdAt": "2024-01-15T00:00:00Z",
+    "status": "active"
+  }
+]
+

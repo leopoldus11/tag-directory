@@ -15,20 +15,22 @@ interface RecipeCardProps {
   type?: "recipe" | "script";
 }
 
+// Improved badge colors with better contrast for light backgrounds
 const difficultyColors = {
-  Beginner: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  Intermediate: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  Advanced: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+  Beginner: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
+  Intermediate: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
+  Advanced: "bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30",
 };
 
 const platformColors: Record<string, string> = {
-  GA4: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  Meta: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-  Consent: "bg-orange-500/10 text-orange-400 border-orange-500/20",
-  "Server-Side": "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
-  GTM: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
-  "Adobe Launch": "bg-pink-500/10 text-pink-400 border-pink-500/20",
-  Other: "bg-gray-500/10 text-gray-400 border-gray-500/20",
+  GA4: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  Meta: "bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30",
+  Consent: "bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-500/30",
+  "Server-Side": "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30",
+  GTM: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30",
+  "Adobe Launch": "bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30",
+  Tealium: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
+  Other: "bg-gray-500/15 text-gray-600 dark:text-gray-400 border-gray-500/30",
 };
 
 export function RecipeCard({ recipe, onView, type = "recipe" }: RecipeCardProps) {

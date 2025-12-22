@@ -49,7 +49,7 @@ function validateBlueprints() {
     
     if (!result.success) {
       console.error(`❌ Validation failed for "${blueprint.id}":`);
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         console.error(`   - ${err.path.join(".")}: ${err.message}`);
       });
       errors++;

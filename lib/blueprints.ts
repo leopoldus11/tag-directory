@@ -77,6 +77,13 @@ function loadBlueprintFile(filePath: string, isLegacy: boolean = false): Trackin
       blueprint.community_verified = false;
     }
     
+    // Set filePath if not already set (for GitHub link)
+    if (!blueprint.filePath) {
+      blueprint.filePath = isLegacy
+        ? `data/recipes/${filePath}`
+        : `src/content/blueprints/${filePath}`;
+    }
+    
     // Validate with Zod (use safeParse to handle legacy data)
     const result = TrackingBlueprintSchema.safeParse(blueprint);
     if (!result.success) {

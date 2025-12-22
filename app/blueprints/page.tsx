@@ -34,8 +34,8 @@ export default async function BlueprintsPage() {
 
   return (
     <SidebarWrapper>
-      <main className="ml-64 flex-1">
-        <div className="mx-auto max-w-7xl px-6 py-8">
+      <main className="flex-1">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
           <div className="mb-8">
             <h1 className="mb-2 text-3xl font-semibold">Blueprints</h1>
             <p className="text-muted-foreground">
