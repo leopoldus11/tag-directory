@@ -169,7 +169,7 @@ export default async function Home() {
                     className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
                   >
                     {/* Title */}
-                    <h3 className="mb-2 text-[12px] md:text-base font-semibold leading-tight text-[#F8FAFC]">
+                    <h3 className="mb-2 text-base font-semibold leading-tight text-[#F8FAFC]">
                       {blueprint.title}
                     </h3>
 
