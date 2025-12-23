@@ -4,9 +4,20 @@ import { Author } from "./authors";
 
 const USERS_DIR = path.join(process.cwd(), "data", "users");
 
-// Ensure users directory exists
-if (!fs.existsSync(USERS_DIR)) {
-  fs.mkdirSync(USERS_DIR, { recursive: true });
+// In serverless environments like Vercel the filesystem is read-only at runtime.
+// We still support file-based storage locally, but avoid mkdir/write in production.
+const IS_READ_ONLY_FS =
+  process.env.VERCEL === "1" || process.env.NODE_ENV === "production";
+
+// Ensure users directory exists (only when filesystem is writable)
+if (!IS_READ_ONLY_FS) {
+  try {
+    if (!fs.existsSync(USERS_DIR)) {
+      fs.mkdirSync(USERS_DIR, { recursive: true });
+    }
+  } catch (error) {
+    console.error("Failed to create users directory:", error);
+  }
 }
 
 export interface User {
@@ -113,8 +124,15 @@ export function createOrUpdateUser(userData: Partial<User> & { id: string }): Us
   else if (user.credits >= 100) user.rank = "Silver";
   else user.rank = "Bronze";
 
-  const filePath = path.join(USERS_DIR, `${user.id}.json`);
-  fs.writeFileSync(filePath, JSON.stringify(user, null, 2), "utf-8");
+  // Persist to disk only when filesystem is writable (local development).
+  if (!IS_READ_ONLY_FS) {
+    try {
+      const filePath = path.join(USERS_DIR, `${user.id}.json`);
+      fs.writeFileSync(filePath, JSON.stringify(user, null, 2), "utf-8");
+    } catch (error) {
+      console.error("Failed to write user file:", error);
+    }
+  }
 
   return user;
 }
