@@ -5,7 +5,7 @@ import { getAllAuthors } from "@/lib/authors";
 import { MemberProfile } from "@/components/member-profile";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Copy, ExternalLink } from "lucide-react";
+import { Check, Copy, ExternalLink, MapPin } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
@@ -89,61 +89,6 @@ export default async function Home() {
 
         {/* Content Sections */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-8 sm:pb-12">
-          {/* Featured Jobs - Show above Featured Blueprints if jobs exist */}
-          {featuredJobs.length > 0 && (
-            <div className="mb-16">
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <h2 className="mb-1 text-2xl font-semibold">Featured Jobs</h2>
-                  <p className="text-sm text-muted-foreground">Find your next digital analytics engineering role</p>
-                </div>
-                <ViewAllLink href="/jobs" />
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {featuredJobs.slice(0, 6).map((job) => (
-                  <Link
-                    key={job.id}
-                    href={job.url || `/jobs/${job.id}`}
-                    target={job.url ? "_blank" : undefined}
-                    rel={job.url ? "noopener noreferrer" : undefined}
-                    className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
-                  >
-                    {/* Company & Location */}
-                    <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
-                      <span className="font-medium">{job.company}</span>
-                      <span>•</span>
-                      <span>{job.workplaceType}</span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="mb-2 text-base font-semibold leading-tight">{job.title}</h3>
-
-                    {/* Description */}
-                    <p className="mb-4 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
-                      {job.description}
-                    </p>
-
-                    {/* Location & Experience */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span>{job.location}</span>
-                        {job.experience && (
-                          <>
-                            <span>•</span>
-                            <span>{job.experience}</span>
-                          </>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
-                        <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Featured Tools */}
           <div className="mb-16">
             <div className="mb-6 flex items-center justify-between">
@@ -173,6 +118,65 @@ export default async function Home() {
               ))}
             </div>
           </div>
+
+          {/* Featured Jobs */}
+          {featuredJobs.length > 0 && (
+            <div className="mb-16">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <h2 className="mb-1 text-2xl font-semibold">Featured Jobs</h2>
+                  <p className="text-sm text-muted-foreground">Find your next digital analytics engineering role</p>
+                </div>
+                <ViewAllLink href="/jobs" />
+              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {featuredJobs.slice(0, 4).map((job) => {
+                  // Get company initial for logo
+                  const companyInitial = job.company.charAt(0).toUpperCase();
+                  
+                  return (
+                    <Link
+                      key={job.id}
+                      href={job.url || `/jobs/${job.id}`}
+                      target={job.url ? "_blank" : undefined}
+                      rel={job.url ? "noopener noreferrer" : undefined}
+                      className="group relative flex gap-3 rounded-lg border border-border bg-background-subtle p-4 transition-all hover:border-border-hover hover:bg-background-muted"
+                    >
+                      {/* Company Logo/Initial */}
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-background-muted border border-border">
+                        <span className="text-lg font-semibold text-foreground-muted">{companyInitial}</span>
+                      </div>
+
+                      {/* Job Content */}
+                      <div className="flex-1 min-w-0">
+                        {/* Company Name */}
+                        <div className="mb-1 text-xs text-foreground-muted">
+                          {job.company}
+                        </div>
+
+                        {/* Job Title */}
+                        <h3 className="mb-2 text-base font-semibold leading-tight text-foreground">
+                          {job.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="mb-3 line-clamp-2 text-sm text-foreground-muted leading-normal">
+                          {job.description}
+                        </p>
+
+                        {/* Location & Employment Type */}
+                        <div className="flex items-center gap-1.5 text-xs text-foreground-subtle">
+                          <MapPin className="h-3 w-3" />
+                          <span>{job.location}</span>
+                          <span>{job.workplaceType}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Featured Tags */}
           <div className="mb-16">

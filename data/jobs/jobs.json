@@ -1,5 +1,31 @@
 [
   {
+    "id": "google-senior-analytics-engineer",
+    "title": "Senior Analytics Engineer",
+    "company": "Google",
+    "location": "Remote",
+    "workplaceType": "Remote",
+    "experience": "5+ years",
+    "description": "Build and maintain data pipelines for tracking user interactions across Google products, ensuring accurate measurement and analytics.",
+    "url": "https://careers.google.com/jobs",
+    "featured": true,
+    "createdAt": "2024-01-15T00:00:00Z",
+    "status": "active"
+  },
+  {
+    "id": "meta-data-tracking-specialist",
+    "title": "Data Tracking Specialist",
+    "company": "Meta",
+    "location": "San Francisco",
+    "workplaceType": "Full-time",
+    "experience": "3+ years",
+    "description": "Design and implement tracking strategies for Meta's advertising platform, working closely with product teams to define measurement requirements.",
+    "url": "https://www.metacareers.com/jobs",
+    "featured": true,
+    "createdAt": "2024-01-16T00:00:00Z",
+    "status": "active"
+  },
+  {
     "id": "example-1",
     "title": "Senior Digital Analytics Engineer",
     "company": "Tech Corp",
