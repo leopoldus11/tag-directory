@@ -70,7 +70,7 @@
   --secondary-foreground: var(--ds-foreground);
   --muted: var(--ds-background-muted);
   --muted-foreground: var(--ds-foreground-muted);
-  --accent: var(--ds-accent);
+  --accent: var(--ds-interactive-hover);
   --accent-foreground: var(--ds-foreground);
   --destructive: oklch(65% 0.15 25);
   --border: var(--ds-border);
@@ -137,10 +137,7 @@ samp {
   font-family: var(--ds-font-mono), var(--font-geist-mono), "Courier New", Courier, monospace;
 }
 
-/* Custom hover effect for navigation links */
-nav a:hover {
-  color: hsl(210 40% 98%);
-}
+/* Navigation links use design system hover - handled in component */
 
 /* CSS View Transitions */
 @view-transition {

@@ -43,7 +43,7 @@ export function SearchBar({ recipes, onSelect }: SearchBarProps) {
         <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-subtle pointer-events-none" />
         <Input
           placeholder="Search for recipes and scripts..."
-          className="pl-12 pr-16 h-12 bg-background-subtle border border-border rounded-lg focus:border-border-hover focus:ring-2 focus:ring-background focus:ring-offset-2 focus:ring-offset-background text-sm"
+          className="pl-12 pr-16 h-12 bg-background-subtle border border-border rounded-lg focus:border-foreground-subtle focus:ring-2 focus:ring-background focus:ring-offset-2 focus:ring-offset-background text-sm"
           onClick={() => setOpen(true)}
           readOnly
         />
