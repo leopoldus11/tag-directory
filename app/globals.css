@@ -112,7 +112,7 @@ html.dark {
   --border-hover: var(--ds-border-hover);
   --muted: var(--ds-background-muted);
   --muted-foreground: var(--ds-foreground-muted);
-  --accent: var(--ds-accent);
+  --accent: var(--ds-interactive-hover);
 }
 
 * {
