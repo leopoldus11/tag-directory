@@ -11,6 +11,7 @@ import {
 import { LogOut, User, Plus } from "lucide-react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { UserAvatar } from "@/components/user-avatar";
 
 export function UserMenu() {
   const { data: session, status } = useSession();
@@ -54,17 +55,11 @@ export function UserMenu() {
           size="sm"
           className="h-8 w-8 rounded-full p-0 hover:bg-muted"
         >
-          {user.image ? (
-            <img
-              src={user.image}
-              alt={user.name || "User"}
-              className="h-8 w-8 rounded-full"
-            />
-          ) : (
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs font-medium">
-              {user.name?.[0] || "U"}
-            </div>
-          )}
+          <UserAvatar
+            name={user.name || user.email || ""}
+            avatar={user.image}
+            size="sm"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">

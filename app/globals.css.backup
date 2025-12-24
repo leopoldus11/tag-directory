@@ -1,12 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "../lib/design-system-tokens.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TRACKING.DIRECTORY DESIGN SYSTEM
-   Based on v0.app style guide
+   PRECISION MONOCHROME DESIGN SYSTEM
+   A distinctive design language for technical excellence
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme inline {
@@ -52,67 +51,38 @@
 }
 
 :root {
-  /* Map design system tokens to Tailwind variables */
-  --background: var(--ds-background);
-  --background-subtle: var(--ds-background-subtle);
-  --background-muted: var(--ds-background-muted);
-  --background-elevated: var(--ds-background-elevated);
-  --foreground: var(--ds-foreground);
-  --foreground-muted: var(--ds-foreground-muted);
-  --foreground-subtle: var(--ds-foreground-subtle);
-  --card: var(--ds-background-subtle);
-  --card-foreground: var(--ds-foreground);
-  --popover: var(--ds-background-elevated);
-  --popover-foreground: var(--ds-foreground);
-  --primary: #ffffff;
-  --primary-foreground: #000000;
-  --secondary: var(--ds-background-muted);
-  --secondary-foreground: var(--ds-foreground);
-  --muted: var(--ds-background-muted);
-  --muted-foreground: var(--ds-foreground-muted);
-  --accent: var(--ds-accent);
-  --accent-foreground: var(--ds-foreground);
+  --background: oklch(15% 0 0);
+  --foreground: oklch(98% 0 0);
+  --card: oklch(18% 0 0);
+  --card-foreground: oklch(98% 0 0);
+  --popover: oklch(18% 0 0);
+  --popover-foreground: oklch(98% 0 0);
+  --primary: oklch(98% 0 0);
+  --primary-foreground: oklch(15% 0 0);
+  --secondary: oklch(22% 0 0);
+  --secondary-foreground: oklch(98% 0 0);
+  --muted: oklch(22% 0 0);
+  --muted-foreground: oklch(65% 0 0);
+  --accent: oklch(22% 0 0);
+  --accent-foreground: oklch(98% 0 0);
   --destructive: oklch(65% 0.15 25);
-  --border: var(--ds-border);
-  --border-muted: var(--ds-border-muted);
-  --border-hover: var(--ds-border-hover);
-  --input: var(--ds-border);
-  --ring: var(--ds-foreground-subtle);
-  --interactive-hover: var(--ds-interactive-hover);
-  --interactive-active: var(--ds-interactive-active);
-  --radius: var(--ds-radius-md);
-  --sidebar: var(--ds-background-subtle);
-  --sidebar-foreground: var(--ds-foreground);
-  --sidebar-primary: var(--ds-foreground);
-  --sidebar-primary-foreground: var(--ds-background);
-  --sidebar-accent: var(--ds-background-muted);
-  --sidebar-accent-foreground: var(--ds-foreground);
-  --sidebar-border: var(--ds-border);
-  --sidebar-ring: var(--ds-foreground-subtle);
+  --border: oklch(25% 0 0);
+  --input: oklch(25% 0 0);
+  --ring: oklch(98% 0 0);
+  --radius: 0.5rem;
+  --sidebar: oklch(18% 0 0);
+  --sidebar-foreground: oklch(98% 0 0);
+  --sidebar-primary: oklch(98% 0 0);
+  --sidebar-primary-foreground: oklch(15% 0 0);
+  --sidebar-accent: oklch(22% 0 0);
+  --sidebar-accent-foreground: oklch(98% 0 0);
+  --sidebar-border: oklch(25% 0 0);
+  --sidebar-ring: oklch(98% 0 0);
   --chart-1: oklch(70% 0.15 150);
   --chart-2: oklch(70% 0.15 200);
   --chart-3: oklch(70% 0.15 250);
   --chart-4: oklch(70% 0.15 300);
   --chart-5: oklch(70% 0.15 350);
-}
-
-/* Ensure dark theme variables are applied when .dark class is on html */
-html.dark {
-  --background: var(--ds-background);
-  --background-subtle: var(--ds-background-subtle);
-  --background-muted: var(--ds-background-muted);
-  --background-elevated: var(--ds-background-elevated);
-  --foreground: var(--ds-foreground);
-  --foreground-muted: var(--ds-foreground-muted);
-  --foreground-subtle: var(--ds-foreground-subtle);
-  --card: var(--ds-background-subtle);
-  --card-foreground: var(--ds-foreground);
-  --border: var(--ds-border);
-  --border-muted: var(--ds-border-muted);
-  --border-hover: var(--ds-border-hover);
-  --muted: var(--ds-background-muted);
-  --muted-foreground: var(--ds-foreground-muted);
-  --accent: var(--ds-accent);
 }
 
 * {
@@ -122,7 +92,7 @@ html.dark {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--ds-font-sans), var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 /* Font family assignments */
@@ -130,11 +100,11 @@ code,
 pre,
 kbd,
 samp {
-  font-family: var(--ds-font-mono), var(--font-geist-mono), "Courier New", Courier, monospace;
+  font-family: var(--font-geist-mono), "Courier New", Courier, monospace;
 }
 
 .font-mono {
-  font-family: var(--ds-font-mono), var(--font-geist-mono), "Courier New", Courier, monospace;
+  font-family: var(--font-geist-mono), "Courier New", Courier, monospace;
 }
 
 /* Custom hover effect for navigation links */

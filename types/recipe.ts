@@ -28,5 +28,7 @@ export interface RecipeMetadata {
   tags?: string[];
   vendor?: string;
   vendorIcon?: string;
+  // Optional code preview for tags (script content)
+  codeSnippet?: string;
 }
 

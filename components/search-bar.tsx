@@ -39,15 +39,15 @@ export function SearchBar({ recipes, onSelect }: SearchBarProps) {
 
   return (
     <>
-      <div className="relative w-full">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <div className="relative w-full max-w-[600px]">
+        <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-subtle pointer-events-none" />
         <Input
           placeholder="Search for recipes and scripts..."
-          className="pl-10 pr-20 h-12 bg-background border-border/50 focus:border-border text-base"
+          className="pl-12 pr-16 h-12 bg-background-subtle border border-border rounded-lg focus:border-border-hover focus:ring-2 focus:ring-background focus:ring-offset-2 focus:ring-offset-background text-sm"
           onClick={() => setOpen(true)}
           readOnly
         />
-        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden h-6 select-none items-center gap-1 rounded border bg-muted/50 px-2 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 hidden h-6 select-none items-center gap-0.5 rounded border border-border bg-background-muted px-2 font-mono text-xs font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </div>

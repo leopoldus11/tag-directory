@@ -1,10 +1,10 @@
 import { SidebarWrapper } from "@/components/sidebar-wrapper";
-import { getAllBlueprints } from "@/lib/blueprints";
+import { getAllTags } from "@/lib/tags";
 import { SearchBar } from "@/components/search-bar";
 import { RecipeGrid } from "@/components/recipe-grid";
-import { ViewAllLink } from "@/components/view-all-link";
 import type { Metadata } from "next";
 import { RecipeMetadata, Platform } from "@/types/recipe";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Tags | tracking.directory",
@@ -17,11 +17,12 @@ export const metadata: Metadata = {
 };
 
 export default async function TagsPage() {
-  const blueprints = getAllBlueprints();
+  const tags = await getAllTags();
 
-  // Convert blueprints to RecipeMetadata format for compatibility
-  const recipeMetadata: RecipeMetadata[] = blueprints.map((b) => ({
-    id: b.id,
+  // Convert tags to RecipeMetadata format for compatibility
+  // Use slug for URLs (more readable than UUID)
+  const recipeMetadata: RecipeMetadata[] = tags.map((b) => ({
+    id: b.slug, // Use slug as ID for URLs
     name: b.title,
     platform: b.platform as RecipeMetadata["platform"],
     difficulty: b.difficulty || "Beginner",
@@ -30,10 +31,11 @@ export default async function TagsPage() {
     tags: b.tags,
     vendor: b.vendor,
     vendorIcon: b.vendorIcon,
+    codeSnippet: b.content,
   }));
 
   // Extract unique platforms from actual tag data (dynamic filtering)
-  const uniquePlatforms = Array.from(new Set(blueprints.map(b => b.platform))) as Platform[];
+  const uniquePlatforms = Array.from(new Set(tags.map(b => b.platform))) as Platform[];
   const availablePlatforms: (Platform | "All")[] = ["All", ...uniquePlatforms.sort()];
 
   return (
@@ -51,7 +53,32 @@ export default async function TagsPage() {
             <SearchBar recipes={recipeMetadata} />
           </div>
 
-          <RecipeGrid initialRecipes={recipeMetadata} />
+          <RecipeGrid
+            initialRecipes={recipeMetadata}
+            adSlot={
+              <Card className="flex flex-col border-border/50 bg-card/60 h-[550px]">
+                <CardContent className="p-0 flex flex-col h-full">
+                  {/* Ad Image - Takes up most of the space, same height as regular card (500px) */}
+                  <div className="flex-1 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center p-4 sm:p-5 h-[500px]">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🎯</div>
+                      <p className="text-xs text-muted-foreground">Ad Image</p>
+                      <p className="text-xs text-muted-foreground mt-2">Your advertisement content here</p>
+                    </div>
+                  </div>
+                  {/* Advertiser Info - Exactly 50px height */}
+                  <div className="h-[50px] p-3 border-t border-border/40 flex flex-col justify-center flex-shrink-0">
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-0.5">
+                      Sponsor
+                    </p>
+                    <h3 className="text-sm font-semibold line-clamp-1">
+                      Your tool here
+                    </h3>
+                  </div>
+                </CardContent>
+              </Card>
+            }
+          />
         </div>
       </main>
     </SidebarWrapper>

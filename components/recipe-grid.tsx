@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, type ReactNode } from "react";
 import { RecipeCard } from "@/components/recipe-card";
 import { FilterBar } from "@/components/filter-bar";
 import { RecipeMetadata } from "@/types/recipe";
@@ -9,9 +9,10 @@ import { useFilters } from "./sidebar-wrapper";
 interface RecipeGridProps {
   initialRecipes: RecipeMetadata[];
   showFilters?: boolean;
+  adSlot?: ReactNode;
 }
 
-export function RecipeGrid({ initialRecipes, showFilters = true }: RecipeGridProps) {
+export function RecipeGrid({ initialRecipes, showFilters = true, adSlot }: RecipeGridProps) {
   const { selectedPlatform } = useFilters();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -55,14 +56,29 @@ export function RecipeGrid({ initialRecipes, showFilters = true }: RecipeGridPro
 
       {/* Recipe Grid */}
       {filteredRecipes.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredRecipes.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              recipe={recipe}
-              type="recipe"
-            />
-          ))}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 items-start">
+          {filteredRecipes.map((recipe, idx) => {
+            // Ad placement logic: first ad after 2nd card (before idx 2), then every 9th card after that
+            // Pattern: after card 2 (idx 1), then after card 11 (idx 10), card 20 (idx 19), etc.
+            const shouldShowAd = adSlot && (
+              idx === 2 || // After 2nd card (show ad before 3rd card)
+              (idx > 2 && (idx - 2) % 9 === 0) // Then every 9th card after that
+            );
+
+            return (
+              <>
+                {/* Inject ad slot at calculated positions */}
+                {shouldShowAd && (
+                  <div className="hidden xl:block" key={`ad-${idx}`}>{adSlot}</div>
+                )}
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  type="recipe"
+                />
+              </>
+            );
+          })}
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center">

@@ -5,8 +5,9 @@ import { createOrUpdateUser, createUserFromAuth } from "@/lib/users";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
-  // NextAuth automatically detects the URL from the request in development
-  // In production, it uses NEXTAUTH_URL or VERCEL_URL if set
+  // Explicitly set the base URL for callbacks
+  // In production, use NEXTAUTH_URL if set, otherwise use VERCEL_URL or fallback
+  trustHost: true, // Trust the host header (required for Vercel)
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,

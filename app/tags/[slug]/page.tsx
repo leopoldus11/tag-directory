@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
-import { getBlueprintBySlug } from "@/lib/blueprints";
+import { getTagBySlug, incrementTagViews } from "@/lib/tags";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { BlueprintDisplay } from "@/components/blueprint-display";
+import { CodeBlock } from "@/components/code-block";
+import { CopyButton } from "@/components/copy-button";
 import type { Metadata } from "next";
 
 interface TagPageProps {
@@ -11,20 +13,20 @@ interface TagPageProps {
 
 export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const blueprint = getBlueprintBySlug(slug);
+  const tag = await getTagBySlug(slug);
 
-  if (!blueprint) {
+  if (!tag) {
     return {
       title: "Tag Not Found",
     };
   }
 
   return {
-    title: `${blueprint.title} | tracking.directory`,
-    description: blueprint.description || `Tracking tag for ${blueprint.platform}`,
+    title: `${tag.title} | tracking.directory`,
+    description: tag.description || `Tracking tag for ${tag.platform}`,
     openGraph: {
-      title: blueprint.title,
-      description: blueprint.description || `Tracking tag for ${blueprint.platform}`,
+      title: tag.title,
+      description: tag.description || `Tracking tag for ${tag.platform}`,
       type: "article",
     },
   };
@@ -32,14 +34,18 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
 
 export default async function TagPage({ params }: TagPageProps) {
   const { slug } = await params;
-  const blueprint = getBlueprintBySlug(slug);
+  const tag = await getTagBySlug(slug);
 
-  if (!blueprint) {
+  if (!tag) {
     notFound();
   }
 
+  // Increment view count (fire and forget)
+  incrementTagViews(slug).catch(console.error);
+
   // Get GitHub repo from environment or use default
   const githubRepo = process.env.NEXT_PUBLIC_GITHUB_REPO || "leopoldus11/tag-directory";
+  const rawJson = JSON.stringify(tag, null, 2);
 
   return (
     <div className="min-h-screen bg-background">
@@ -52,8 +58,32 @@ export default async function TagPage({ params }: TagPageProps) {
           Back to Tags
         </Link>
 
-        <article>
-          <BlueprintDisplay blueprint={blueprint} githubRepo={githubRepo} />
+        <article className="space-y-8">
+          <BlueprintDisplay blueprint={tag} githubRepo={githubRepo} />
+
+          {/* Raw JSON view for power users */}
+          <section className="rounded-lg border border-border/50 bg-card/40 p-4 sm:p-5">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-wider">
+                  Tag JSON (Source of truth)
+                </h2>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  This is the exact JSON stored in the database
+                  {tag.filePath && (
+                    <>
+                      {" "}at{" "}
+                      <code className="font-mono bg-muted/60 px-1.5 py-0.5 rounded">
+                        {tag.filePath}
+                      </code>
+                    </>
+                  )}
+                </p>
+              </div>
+              <CopyButton text={rawJson} />
+            </div>
+            <CodeBlock code={rawJson} language="json" />
+          </section>
         </article>
       </div>
     </div>

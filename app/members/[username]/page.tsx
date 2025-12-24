@@ -17,6 +17,8 @@ import { Button } from "@/components/ui/button";
 import { CreditBadge } from "@/components/credit-badge";
 import { RankDisplay } from "@/components/rank-display";
 import { MemberProfile } from "@/components/member-profile";
+import { EditProfileDialog } from "@/components/edit-profile-dialog";
+import { UserAvatar } from "@/components/user-avatar";
 import { ExternalLink, UserPlus, Github, Briefcase, MapPin } from "lucide-react";
 import Link from "next/link";
 import { getAllBlueprints } from "@/lib/blueprints";
@@ -104,41 +106,47 @@ export default async function MemberPage({ params }: MemberPageProps) {
           <Card className="mb-6 border-border/50 bg-card/50">
             <CardContent className="p-8">
               <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left">
-                <div className="mb-4 md:mb-0 md:mr-6 relative">
-                  {userData.avatar?.startsWith("http") ? (
-                    <img
-                      src={userData.avatar}
-                      alt={userData.name}
-                      className="h-24 w-24 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-muted/50 text-2xl font-medium text-foreground">
-                      {userData.avatar}
-                    </div>
-                  )}
-                  {userData.isOpenForWork && (
-                    <div className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full border-2 border-background bg-green-500 flex items-center justify-center" title="Open for work">
-                      <span className="text-xs text-white font-bold">✓</span>
-                    </div>
-                  )}
+                <div className="mb-4 md:mb-0 md:mr-6">
+                  <UserAvatar
+                    name={userData.name}
+                    avatar={userData.avatar}
+                    size="lg"
+                    showStatusDot={userData.isOpenForWork}
+                  />
                 </div>
                 <div className="flex-1">
-                  <div className="mb-3 flex flex-col items-center md:items-start">
-                    <h1 className="mb-2 text-3xl font-semibold">{userData.name}</h1>
-                    <div className="mb-3 flex flex-wrap items-center justify-center gap-2 md:justify-start">
-                      <CreditBadge credits={credits} rank={rank} size="lg" />
-                      {userData.isOpenForWork && (
-                        <Badge variant="outline" className="bg-green-500/10 text-green-400 border-green-500/20">
-                          <Briefcase className="mr-1.5 h-3 w-3" />
-                          Open for {userData.availabilityType || "work"}
-                        </Badge>
-                      )}
+                  <div className="mb-3 flex flex-col items-center gap-3 md:flex-row md:items-start md:justify-between">
+                    <div className="flex flex-col items-center md:items-start">
+                      <h1 className="mb-1 text-3xl font-semibold">{userData.name}</h1>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span className="font-mono">@{userData.id}</span>
+                      </div>
                     </div>
-                    <RankDisplay rank={rank} credits={credits} size="md" showProgress />
+                    {/* Edit profile – will later be gated to the current user only */}
+                    <EditProfileDialog
+                      initialName={userData.name}
+                      initialUsername={userData.id}
+                      initialBio={userData.bio}
+                      initialWebsite={undefined}
+                      initialXProfile={undefined}
+                      initialOpenForWork={userData.isOpenForWork}
+                    />
                   </div>
-                  
+
+                  <div className="mb-3 flex flex-wrap items-center justify-center gap-2 md:justify-start">
+                    <CreditBadge credits={credits} rank={rank} size="lg" />
+                    {userData.isOpenForWork && (
+                      <Badge variant="outline" className="bg-green-500/10 text-green-400 border-green-500/20">
+                        <Briefcase className="mr-1.5 h-3 w-3" />
+                        Open for {userData.availabilityType || "work"}
+                      </Badge>
+                    )}
+                  </div>
+
+                  <RankDisplay rank={rank} credits={credits} size="md" showProgress />
+
                   {userData.bio && (
-                    <p className="mb-4 text-muted-foreground">{userData.bio}</p>
+                    <p className="mt-3 mb-4 text-muted-foreground">{userData.bio}</p>
                   )}
 
                   <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground md:justify-start">

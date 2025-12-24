@@ -5,6 +5,7 @@ import { TopNav } from "@/components/top-nav";
 import { StructuredData } from "./structured-data";
 import { ViewTransition } from "@/components/view-transition";
 import { AuthSessionProvider } from "@/components/session-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 import { getBaseUrl } from "@/lib/env";
 
 const geistSans = Geist({
@@ -109,7 +110,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" className="light" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -119,12 +120,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthSessionProvider>
-          <ViewTransition>
-            <TopNav />
-            {children}
-          </ViewTransition>
-        </AuthSessionProvider>
+        <ThemeProvider>
+          <AuthSessionProvider>
+            <ViewTransition>
+              <TopNav />
+              {children}
+            </ViewTransition>
+          </AuthSessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

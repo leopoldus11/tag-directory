@@ -2,7 +2,6 @@
 
 import { RecipeMetadata } from "@/types/recipe";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Copy, Check, ExternalLink } from "lucide-react";
 import { useState } from "react";
@@ -15,96 +14,79 @@ interface RecipeCardProps {
   type?: "recipe" | "script";
 }
 
-// Improved badge colors with better contrast for light backgrounds
-const difficultyColors = {
-  Beginner: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
-  Intermediate: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
-  Advanced: "bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30",
-};
-
-const platformColors: Record<string, string> = {
-  GA4: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
-  Meta: "bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30",
-  Consent: "bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-500/30",
-  "Server-Side": "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30",
-  GTM: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30",
-  "Adobe Launch": "bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30",
-  Tealium: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
-  Other: "bg-gray-500/15 text-gray-600 dark:text-gray-400 border-gray-500/30",
-};
-
 export function RecipeCard({ recipe, onView, type = "recipe" }: RecipeCardProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const [copiedLink, setCopiedLink] = useState(false);
 
   // Use tags route for recipes
   const href = type === "recipe" ? `/tags/${recipe.id}` : `/${type}s/${recipe.id}`;
 
+  const handleCopyLink = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const url = `${origin}${href}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    });
+  };
+
   return (
     <Link href={href}>
-      <Card className="group relative h-full cursor-pointer border-border/50 bg-card/50 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm">
-        <CardHeader className="pb-3">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex-1 min-w-0">
-              <CardTitle className="mb-1.5 line-clamp-2 text-base font-medium leading-tight">
-                {recipe.name}
-              </CardTitle>
-              <CardDescription className="line-clamp-3 text-sm text-muted-foreground leading-relaxed">
-                {recipe.description || "No description available"}
-              </CardDescription>
-            </div>
-            {recipe.vendorIcon && (
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted/30 text-base">
-                {recipe.vendorIcon}
-              </div>
-            )}
+      <Card className="group relative flex flex-col cursor-pointer border border-border bg-background-subtle transition-all hover:border-border-hover hover:bg-background-muted h-[500px]">
+        <CardHeader className="pb-3 flex-shrink-0 px-4 pt-4">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="mb-1.5 line-clamp-2 text-base font-semibold leading-tight tracking-tight text-foreground">
+              {recipe.name}
+            </CardTitle>
+            <CardDescription className="line-clamp-3 text-sm text-foreground-muted leading-normal">
+              {recipe.description || "No description available"}
+            </CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="pt-0">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            <Badge
-              variant="outline"
-              className={cn(
-                "text-xs border font-normal",
-                platformColors[recipe.platform] || platformColors.Other
-              )}
-            >
-              {recipe.platform}
-            </Badge>
-            <Badge
-              variant="outline"
-              className={cn("text-xs border font-normal", difficultyColors[recipe.difficulty])}
-            >
-              {recipe.difficulty}
-            </Badge>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-[12px] text-muted-foreground font-mono">
+        <CardContent className="pt-0 pb-4 px-4 flex-1 flex flex-col overflow-hidden">
+          {/* Code preview for tags with script content */}
+          {recipe.codeSnippet && (
+            <div className="group/code relative flex-1 rounded-md border border-border-muted bg-background px-3 py-2 text-xs font-mono text-foreground-muted overflow-y-auto custom-scrollbar mb-3">
+              {/* Action buttons inside code container */}
+              <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 transition-opacity group-hover/code:opacity-100 z-10">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="h-8 w-8 rounded-md bg-background-elevated border border-border hover:bg-interactive-hover hover:border-border-hover"
+                  onClick={handleCopyLink}
+                  aria-label={copiedLink ? "Link copied" : "Copy link to tag"}
+                >
+                  {copiedLink ? (
+                    <Check className="h-4 w-4 text-emerald-400" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="h-8 w-8 rounded-md bg-background-elevated border border-border hover:bg-interactive-hover hover:border-border-hover"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.open(href, '_blank');
+                  }}
+                  aria-label="Open tag in new tab"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              </div>
+              <pre className="whitespace-pre-wrap text-[11px] leading-relaxed pr-12">
+                {recipe.codeSnippet}
+              </pre>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between pt-1 flex-shrink-0">
+            <p className="text-xs text-foreground-subtle font-mono">
               {Array.isArray(recipe.author) ? recipe.author.join(', ') : recipe.author}
             </p>
-            <div className="flex items-center gap-1">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-7 w-7 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleCopy(e);
-                }}
-              >
-                {copied ? (
-                  <Check className="h-3.5 w-3.5 text-emerald-400" />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" />
-                )}
-              </Button>
-              <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-            </div>
           </div>
         </CardContent>
       </Card>

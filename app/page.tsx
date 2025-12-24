@@ -1,4 +1,4 @@
-import { getAllBlueprints } from "@/lib/blueprints";
+import { getAllTags } from "@/lib/tags";
 import { SearchBar } from "@/components/search-bar";
 import { ViewAllLink } from "@/components/view-all-link";
 import { getAllAuthors } from "@/lib/authors";
@@ -40,7 +40,7 @@ const difficultyColors: Record<string, string> = {
 };
 
 export default async function Home() {
-  const blueprints = getAllBlueprints();
+  const tags = await getAllTags({ limit: 20 });
   const authors = getAllAuthors();
   const featuredJobs = getFeaturedJobs();
 
@@ -63,12 +63,12 @@ export default async function Home() {
           
           {/* Search Box */}
           <div className="mb-6 sm:mb-8 w-full max-w-2xl px-4">
-            <SearchBar recipes={blueprints.map(b => ({
-              id: b.id,
+            <SearchBar recipes={tags.map(b => ({
+              id: b.slug,
               name: b.title,
               platform: b.platform,
               difficulty: b.difficulty || "Beginner",
-              author: b.author,
+              author: Array.isArray(b.author) ? b.author.join(', ') : b.author,
               description: b.description,
             }))} />
           </div>
@@ -144,7 +144,37 @@ export default async function Home() {
             </div>
           )}
 
-          {/* Featured Blueprints */}
+          {/* Featured Tools */}
+          <div className="mb-16">
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="mb-1 text-2xl font-semibold">Featured Tools</h2>
+                <p className="text-sm text-muted-foreground">Essential utilities for tracking engineers</p>
+              </div>
+              <ViewAllLink href="/tools" />
+            </div>
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide md:flex-wrap md:overflow-x-visible">
+              {[
+                { name: "GTM Debugger", icon: "🔧", slug: "gtm-debugger" },
+                { name: "DataLayer Inspector", icon: "<>", slug: "datalayer-inspector" },
+                { name: "Tag Audit Tool", icon: "📊", slug: "tag-audit-tool" },
+                { name: "Privacy Scanner", icon: "🔒", slug: "privacy-scanner" },
+                { name: "Schema Validator", icon: "✓", slug: "schema-validator" },
+                { name: "Tag Editor", icon: "✏️", slug: "tag-editor" },
+              ].map((tool) => (
+                <Link
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className="group flex items-center gap-2 h-10 px-4 bg-background-subtle border border-border rounded-full transition-all hover:border-border-hover hover:bg-background-muted whitespace-nowrap shrink-0"
+                >
+                  <span className="text-base">{tool.icon}</span>
+                  <span className="text-sm font-medium text-foreground">{tool.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Featured Tags */}
           <div className="mb-16">
             <div className="mb-6 flex items-center justify-between">
               <div>
@@ -154,28 +184,28 @@ export default async function Home() {
               <ViewAllLink href="/tags" />
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {blueprints.slice(0, 6).map((blueprint) => {
+              {tags.slice(0, 6).map((tag) => {
                 // Support multiple authors (comma-separated string or array)
-                const authors = Array.isArray(blueprint.author) 
-                  ? blueprint.author 
-                  : typeof blueprint.author === 'string' 
-                    ? blueprint.author.split(',').map(a => a.trim())
-                    : [blueprint.author];
+                const authors = Array.isArray(tag.author) 
+                  ? tag.author 
+                  : typeof tag.author === 'string' 
+                    ? tag.author.split(',').map(a => a.trim())
+                    : [tag.author];
                 
                 return (
                   <Link
-                    key={blueprint.id}
-                    href={`/tags/${blueprint.slug}`}
-                    className="group relative rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-border/80 hover:bg-card hover:shadow-sm"
+                    key={tag.slug}
+                    href={`/tags/${tag.slug}`}
+                    className="group relative rounded-lg border border-border bg-background-subtle p-4 transition-all hover:border-border-hover hover:bg-background-muted"
                   >
                     {/* Title */}
-                    <h3 className="mb-2 text-base font-semibold leading-tight text-[#F8FAFC]">
-                      {blueprint.title}
+                    <h3 className="mb-2 text-base font-semibold leading-tight text-foreground">
+                      {tag.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="mb-4 line-clamp-2 text-[12px] md:text-sm text-muted-foreground leading-relaxed">
-                      {blueprint.description || "No description available"}
+                    <p className="mb-4 line-clamp-2 text-sm text-foreground-muted leading-normal">
+                      {tag.description || "No description available"}
                     </p>
 
                     {/* Tags - Hidden on mobile */}
@@ -184,29 +214,29 @@ export default async function Home() {
                         variant="outline"
                         className={cn(
                           "text-xs border font-normal",
-                          platformColors[blueprint.platform] || platformColors.Other
+                          platformColors[tag.platform] || platformColors.Other
                         )}
                       >
-                        {blueprint.platform}
+                        {tag.platform}
                       </Badge>
-                      {blueprint.difficulty && (
+                      {tag.difficulty && (
                         <Badge
                           variant="outline"
                           className={cn(
                             "text-xs border font-normal",
-                            difficultyColors[blueprint.difficulty]
+                            difficultyColors[tag.difficulty]
                           )}
                         >
-                          {blueprint.difficulty}
+                          {tag.difficulty}
                         </Badge>
                       )}
                     </div>
 
                     {/* Authors */}
                     <div className="flex items-center justify-between">
-                      <p className="text-[12px] text-muted-foreground font-mono">
+                      <p className="text-xs text-foreground-subtle font-mono">
                         {authors.join(', ')}
-                        {blueprint.community_verified && (
+                        {tag.community_verified && (
                           <Check className="ml-1 inline h-3 w-3 text-emerald-500" />
                         )}
                       </p>
