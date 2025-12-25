@@ -52,9 +52,13 @@ next-env.d.ts
 Thumbs.db
 
 # Personal/Development Documentation (not for community)
-# Ignore all .md files except README.md
+# Ignore all .md files except README.md and strategic docs
 *.md
 !README.md
+!CONTRIBUTING.md
+!7_DAY_LAUNCH_ROADMAP.md
+!USER_FEEDBACK_SETUP.md
+!LAUNCH_STRATEGY.md
 
 # User data (private)
 /data/users/
